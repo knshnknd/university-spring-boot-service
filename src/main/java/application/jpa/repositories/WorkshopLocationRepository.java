@@ -9,6 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface WorkshopLocationRepository extends JpaRepository<WorkshopLocation, Integer> {
-    Optional<WorkshopLocation> findWorkshopLocationByWorkshopLocationId(Integer id);
     void deleteWorkshopLocationByWorkshopLocationId(Integer id);
 }

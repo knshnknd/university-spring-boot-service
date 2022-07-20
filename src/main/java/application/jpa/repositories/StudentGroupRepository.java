@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface StudentGroupRepository extends JpaRepository<StudentGroup, Integer> {
-    Optional<StudentGroup> findStudentGroupByStudentGroupId(Integer id);
     Optional<StudentGroup> findStudentGroupByStudentGroupName(String name);
     void deleteStudentGroupByStudentGroupId(Integer id);
 }

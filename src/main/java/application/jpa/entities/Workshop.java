@@ -10,6 +10,7 @@ import java.util.List;
 public class Workshop {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer workshopId;
 
     @ManyToOne

@@ -33,8 +33,9 @@ public class DataPreloadService {
     private void preloadSubjects() {
         List<Subject> subjectList =List.of(
                 new Subject("Математический анализ"),
-                new Subject("Чтение"),
-                new Subject("Узбекский язык")
+                new Subject("Экономика"),
+                new Subject("Алгоритмизация и программирование"),
+                new Subject("История Древнего мира")
         );
 
         subjectRepository.saveAll(subjectList);

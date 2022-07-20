@@ -1,14 +1,13 @@
 package application.jpa.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Teacher {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer teacherId;
     private String teacherFullName;
     private String teacherScienceDegree;
