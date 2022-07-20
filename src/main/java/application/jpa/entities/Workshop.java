@@ -1,5 +1,7 @@
 package application.jpa.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +24,8 @@ public class Workshop {
     @JoinColumn(referencedColumnName = "teacherId")
     private Teacher fkTeacherId;
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date workshopDate;
 
     @ManyToMany(mappedBy = "workshops")
