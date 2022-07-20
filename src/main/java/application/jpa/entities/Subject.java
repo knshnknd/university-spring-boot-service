@@ -18,6 +18,10 @@ public class Subject {
     public Subject() {
     }
 
+    public Subject(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
     public Subject(Integer subjectId, String subjectName, List<Workshop> workshops) {
         this.subjectId = subjectId;
         this.subjectName = subjectName;

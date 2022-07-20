@@ -14,12 +14,15 @@ public class Workshop {
     @JoinColumn(referencedColumnName = "subjectId")
     private Subject fkWorkshopId;
 
-    private String workshopAddress;
-    private Date workshopDate;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "workshopLocationId")
+    private WorkshopLocation fkWorkshopLocationId;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "teacherId")
     private Teacher fkTeacherId;
+
+    private Date workshopDate;
 
     @ManyToMany(mappedBy = "workshops")
     private List<Student> students;
@@ -27,13 +30,13 @@ public class Workshop {
     public Workshop() {
     }
 
-    public Workshop(Integer workshopId, Subject fkWorkshopId, String workshopAddress,
-                    Date workshopDate, Teacher fkTeacherId, List<Student> students) {
+    public Workshop(Integer workshopId, Subject fkWorkshopId, WorkshopLocation fkWorkshopLocationId,
+                    Teacher fkTeacherId, Date workshopDate, List<Student> students) {
         this.workshopId = workshopId;
         this.fkWorkshopId = fkWorkshopId;
-        this.workshopAddress = workshopAddress;
-        this.workshopDate = workshopDate;
+        this.fkWorkshopLocationId = fkWorkshopLocationId;
         this.fkTeacherId = fkTeacherId;
+        this.workshopDate = workshopDate;
         this.students = students;
     }
 
@@ -53,20 +56,12 @@ public class Workshop {
         this.fkWorkshopId = fkWorkshopId;
     }
 
-    public String getWorkshopAddress() {
-        return workshopAddress;
+    public WorkshopLocation getFkWorkshopLocationId() {
+        return fkWorkshopLocationId;
     }
 
-    public void setWorkshopAddress(String workshopAddress) {
-        this.workshopAddress = workshopAddress;
-    }
-
-    public Date getWorkshopDate() {
-        return workshopDate;
-    }
-
-    public void setWorkshopDate(Date workshopDate) {
-        this.workshopDate = workshopDate;
+    public void setFkWorkshopLocationId(WorkshopLocation fkWorkshopLocationId) {
+        this.fkWorkshopLocationId = fkWorkshopLocationId;
     }
 
     public Teacher getFkTeacherId() {
@@ -75,6 +70,14 @@ public class Workshop {
 
     public void setFkTeacherId(Teacher fkTeacherId) {
         this.fkTeacherId = fkTeacherId;
+    }
+
+    public Date getWorkshopDate() {
+        return workshopDate;
+    }
+
+    public void setWorkshopDate(Date workshopDate) {
+        this.workshopDate = workshopDate;
     }
 
     public List<Student> getStudents() {

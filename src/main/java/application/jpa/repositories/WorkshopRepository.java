@@ -8,7 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface WorkshopRepository extends JpaRepository<Workshop, Integer> {
-    Optional<Workshop> findWorkshopByWorkshopId (Integer id);
-    Optional<Workshop> findWorkshopByFkWorkshopId (String name);
-    void deleteLectureByWorkshopId (Integer id);
+    Optional<Workshop> findWorkshopByWorkshopId(Integer id);
+    void deleteLectureByWorkshopId(Integer id);
 }

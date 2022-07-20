@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, Integer> {
-    Optional<Subject> findStudentGroupBySubjectId (Integer id);
-    void deleteStudentGroupBySubjectId (Integer id);
+    Optional<Subject> findStudentGroupBySubjectId(Integer id);
+    void deleteStudentGroupBySubjectId(Integer id);
 }
