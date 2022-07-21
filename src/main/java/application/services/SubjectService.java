@@ -2,6 +2,7 @@ package application.services;
 
 import application.jpa.entities.Subject;
 import application.jpa.repositories.SubjectRepository;
+import application.util.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,15 @@ public class SubjectService {
 
     public Subject findOne(Integer id) {
         Optional<Subject> foundSubject = subjectRepository.findById(id);
-        return foundSubject.orElse(null);
+        return foundSubject.orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Transactional
+    public void save(Subject subject) {
+
+        // Здесь может быть обращение к методу enrich для дополнительного
+        // обогащения сущности данными (например, время создания)
+
+        subjectRepository.save(subject);
     }
 }

@@ -1,7 +1,7 @@
 package application.jpa.entities;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class StudentGroup {
@@ -9,10 +9,12 @@ public class StudentGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer studentGroupId;
+
+    @NotEmpty(message = "Название группы не должно быть пустым")
     private String studentGroupName;
 
-    @OneToMany(mappedBy = "fkStudentGroupId")
-    private List<Student> students;
+//    @OneToMany(mappedBy = "fkStudentGroupId")
+//    private List<Student> students;
 
     public StudentGroup() {
     }
@@ -21,10 +23,9 @@ public class StudentGroup {
         this.studentGroupName = studentGroupName;
     }
 
-    public StudentGroup(Integer studentGroupId, String studentGroupName, List<Student> students) {
+    public StudentGroup(Integer studentGroupId, String studentGroupName) {
         this.studentGroupId = studentGroupId;
         this.studentGroupName = studentGroupName;
-        this.students = students;
     }
 
     public Integer getStudentGroupId() {
@@ -42,12 +43,12 @@ public class StudentGroup {
     public void setStudentGroupName(String studentGroupName) {
         this.studentGroupName = studentGroupName;
     }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
+//
+//    public List<Student> getStudents() {
+//        return students;
+//    }
+//
+//    public void setStudents(List<Student> students) {
+//        this.students = students;
+//    }
 }

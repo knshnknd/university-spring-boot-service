@@ -1,18 +1,19 @@
 package application.jpa.entities;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
+// Для работы с нечисловыми ключами нужно имплементить Serializable
 @Entity
-public class Subject {
+public class Subject implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer subjectId;
-    private String subjectName;
 
-    @OneToMany(mappedBy = "fkWorkshopId")
-    private List<Workshop> workshops;
+    @NotEmpty(message = "Название дисциплины не должно быть пустым.")
+    private String subjectName;
 
     public Subject() {
     }
@@ -21,10 +22,9 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
-    public Subject(Integer subjectId, String subjectName, List<Workshop> workshops) {
+    public Subject(Integer subjectId, String subjectName) {
         this.subjectId = subjectId;
         this.subjectName = subjectName;
-        this.workshops = workshops;
     }
 
     public Integer getSubjectId() {
@@ -41,13 +41,5 @@ public class Subject {
 
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
-    }
-
-    public List<Workshop> getWorkshops() {
-        return workshops;
-    }
-
-    public void setWorkshops(List<Workshop> workshops) {
-        this.workshops = workshops;
     }
 }

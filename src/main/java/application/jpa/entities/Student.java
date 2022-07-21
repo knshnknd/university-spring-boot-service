@@ -1,6 +1,8 @@
 package application.jpa.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -9,11 +11,14 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer studentId;
+
+    @NotEmpty(message = "ФИО студента не может быть пустым.")
     private String studentFullName;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(referencedColumnName = "studentGroupId")
-    private StudentGroup fkStudentGroupId;
+    @JoinColumn(name = "student_group_name", referencedColumnName = "studentGroupName")
+    private StudentGroup studentGroupName;
 
     @ManyToMany
     @JoinTable(
@@ -26,10 +31,10 @@ public class Student {
     public Student() {
     }
 
-    public Student(Integer studentId, String studentFullName, StudentGroup fkStudentGroupId, List<Workshop> workshops) {
+    public Student(Integer studentId, String studentFullName, StudentGroup studentGroupName, List<Workshop> workshops) {
         this.studentId = studentId;
         this.studentFullName = studentFullName;
-        this.fkStudentGroupId = fkStudentGroupId;
+        this.studentGroupName = studentGroupName;
         this.workshops = workshops;
     }
 
@@ -49,19 +54,19 @@ public class Student {
         this.studentFullName = studentFullName;
     }
 
-    public StudentGroup getFkStudentGroupId() {
-        return fkStudentGroupId;
-    }
-
-    public void setFkStudentGroupId(StudentGroup fkStudentGroupId) {
-        this.fkStudentGroupId = fkStudentGroupId;
-    }
-
     public List<Workshop> getWorkshops() {
         return workshops;
     }
 
     public void setWorkshops(List<Workshop> workshops) {
         this.workshops = workshops;
+    }
+
+    public StudentGroup getStudentGroupName() {
+        return studentGroupName;
+    }
+
+    public void setStudentGroupName(StudentGroup studentGroupName) {
+        this.studentGroupName = studentGroupName;
     }
 }

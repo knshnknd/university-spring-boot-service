@@ -3,6 +3,7 @@ package application.jpa.entities;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -13,9 +14,10 @@ public class Workshop {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer workshopId;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(referencedColumnName = "subjectId")
-    private Subject fkWorkshopId;
+    @JoinColumn(name = "workshop_name", referencedColumnName = "subjectName")
+    private Subject subjectName;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "workshopLocationId")
@@ -35,10 +37,10 @@ public class Workshop {
     public Workshop() {
     }
 
-    public Workshop(Integer workshopId, Subject fkWorkshopId, WorkshopLocation fkWorkshopLocationId,
+    public Workshop(Integer workshopId, Subject subjectName, WorkshopLocation fkWorkshopLocationId,
                     Teacher fkTeacherId, Date workshopDate, List<Student> students) {
         this.workshopId = workshopId;
-        this.fkWorkshopId = fkWorkshopId;
+        this.subjectName = subjectName;
         this.fkWorkshopLocationId = fkWorkshopLocationId;
         this.fkTeacherId = fkTeacherId;
         this.workshopDate = workshopDate;
@@ -51,14 +53,6 @@ public class Workshop {
 
     public void setWorkshopId(Integer workshopId) {
         this.workshopId = workshopId;
-    }
-
-    public Subject getFkWorkshopId() {
-        return fkWorkshopId;
-    }
-
-    public void setFkWorkshopId(Subject fkWorkshopId) {
-        this.fkWorkshopId = fkWorkshopId;
     }
 
     public WorkshopLocation getFkWorkshopLocationId() {
@@ -91,5 +85,13 @@ public class Workshop {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public Subject getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(Subject subjectName) {
+        this.subjectName = subjectName;
     }
 }
