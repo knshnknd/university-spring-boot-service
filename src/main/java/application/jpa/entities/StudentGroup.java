@@ -1,9 +1,15 @@
 package application.jpa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-public class StudentGroup {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "studentGroupId")
+public class StudentGroup implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,8 +17,8 @@ public class StudentGroup {
 
     private String studentGroupName;
 
-//    @OneToMany(mappedBy = "fkStudentGroupId")
-//    private List<Student> students;
+    @OneToMany(mappedBy = "studentGroup")
+    private List<Student> students;
 
     public StudentGroup() {
     }
@@ -24,6 +30,12 @@ public class StudentGroup {
     public StudentGroup(Integer studentGroupId, String studentGroupName) {
         this.studentGroupId = studentGroupId;
         this.studentGroupName = studentGroupName;
+    }
+
+    public StudentGroup(Integer studentGroupId, String studentGroupName, List<Student> students) {
+        this.studentGroupId = studentGroupId;
+        this.studentGroupName = studentGroupName;
+        this.students = students;
     }
 
     public Integer getStudentGroupId() {
@@ -41,12 +53,12 @@ public class StudentGroup {
     public void setStudentGroupName(String studentGroupName) {
         this.studentGroupName = studentGroupName;
     }
-//
-//    public List<Student> getStudents() {
-//        return students;
-//    }
-//
-//    public void setStudents(List<Student> students) {
-//        this.students = students;
-//    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 }

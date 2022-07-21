@@ -1,23 +1,23 @@
 package application.jpa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "studentId")
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer studentId;
 
-    @NotEmpty(message = "ФИО студента не может быть пустым.")
     private String studentFullName;
 
-    @NotNull
     @ManyToOne
-    @JoinColumn(name = "student_group", referencedColumnName = "studentGroupName")
+    @JoinColumn(referencedColumnName = "studentGroupId")
     private StudentGroup studentGroup;
 
     @ManyToMany
@@ -31,11 +31,9 @@ public class Student {
     public Student() {
     }
 
-    public Student(Integer studentId, String studentFullName, StudentGroup studentGroup, List<Workshop> workshops) {
-        this.studentId = studentId;
+    public Student(String studentFullName, StudentGroup studentGroup) {
         this.studentFullName = studentFullName;
         this.studentGroup = studentGroup;
-        this.workshops = workshops;
     }
 
     public Integer getStudentId() {

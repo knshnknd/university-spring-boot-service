@@ -26,12 +26,14 @@ public class StudentValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Student student = (Student) target;
 
-        if (student.getStudentGroup() == null) {
-            return;
+        if (student.getStudentFullName() == null || student.getStudentFullName().equals("")) {
+            errors.rejectValue("studentFullName", "", "The name of the student must not be empty.");;
         }
 
-        if (studentGroupService.findByName(student.getStudentGroup().getStudentGroupName()).isEmpty()) {
-            errors.rejectValue("studentGroupName", "Такой студенческой группы не существует.");
+        // Обработку на одинаковые ФИО не делаем, потому что могут существовать студенты с одинаковыми ФИО
+
+        if (studentGroupService.findById(student.getStudentGroup().getStudentGroupId()).isEmpty()) {
+            errors.rejectValue("studentGroup", "There is no such student group.");
         }
     }
 }

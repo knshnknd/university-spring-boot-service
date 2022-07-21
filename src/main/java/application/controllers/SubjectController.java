@@ -65,15 +65,15 @@ public class SubjectController {
     @PatchMapping("/{id}")
     public ResponseEntity<HttpStatus> update(@RequestBody @Valid SubjectDTO subjectDTO,
                                                        BindingResult bindingResult, @PathVariable("id") int id) {
-        Subject subjectToCreate = convertToSubject(subjectDTO);
+        Subject subjectToUpdate = convertToSubject(subjectDTO);
 
-        subjectValidator.validate(subjectToCreate, bindingResult);
+        subjectValidator.validate(subjectToUpdate, bindingResult);
 
         if (bindingResult.hasErrors()) {
             returnErrorsToClient(bindingResult);
         }
 
-        subjectService.save(subjectToCreate);
+        subjectService.update(id, subjectToUpdate);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 

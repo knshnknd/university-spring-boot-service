@@ -1,8 +1,6 @@
 package application.services;
 
-import application.jpa.entities.StudentGroup;
 import application.jpa.entities.Subject;
-import application.jpa.repositories.StudentGroupRepository;
 import application.jpa.repositories.SubjectRepository;
 import application.util.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class SubjectService {
-    private static final String SUBJECT_NOT_FOUND_ERROR_MESSAGE = "Student group with this ID was not found.";
+    private static final String SUBJECT_NOT_FOUND_ERROR_MESSAGE = "Subject with this ID was not found.";
 
     private final SubjectRepository subjectRepository;
 

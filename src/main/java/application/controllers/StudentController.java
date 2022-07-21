@@ -1,11 +1,15 @@
 package application.controllers;
 
 import application.dto.StudentDTO;
+import application.dto.StudentGroupDTO;
 import application.dto.StudentResponse;
+import application.dto.SubjectResponse;
 import application.jpa.entities.Student;
+import application.jpa.entities.StudentGroup;
 import application.services.StudentService;
 import application.util.error_responses.ErrorResponse;
 import application.util.exceptions.EntityNotCreatedException;
+import application.util.exceptions.EntityNotFoundException;
 import application.util.validators.StudentValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 import static application.util.ErrorsUtil.returnErrorsToClient;
 
@@ -35,41 +39,63 @@ public class StudentController {
         this.modelMapper = modelMapper;
     }
 
-    // FIND ALL
     @GetMapping
-    public StudentResponse getStudents() {
-        // Оборачиваем список из всех студентов в один внешний объект для пересылки
-        return new StudentResponse(studentService.findAll()
-                .stream()
-                .map(this::convertToStudentDTO)
-                .collect(Collectors.toList()));
+    public StudentResponse getAll() {
+        // Оборачиваем список из всех объектов в один внешний объект для пересылки
+        return new StudentResponse(new ArrayList<>(studentService.findAll()));
     }
-    // FIND ONE
-    // UPDATE
+
+    @GetMapping("/{id}")
+    public Student getOne(@PathVariable("id") Integer id) {
+        return studentService.findOne(id);
+    }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> add(@RequestBody @Valid StudentDTO studentDTO,
-                                          BindingResult bindingResult) {
+    public ResponseEntity<HttpStatus> create(@RequestBody @Valid StudentDTO studentDTO, BindingResult bindingResult) {
+        Student studentToCreate = convertToStudent(studentDTO);
 
-        Student studentToAdd = convertToStudent(studentDTO);
-
-        studentValidator.validate(studentToAdd, bindingResult);
+        studentValidator.validate(studentToCreate, bindingResult);
 
         if (bindingResult.hasErrors()) {
             returnErrorsToClient(bindingResult);
         }
 
-        studentService.save(studentToAdd);
+        studentService.save(studentToCreate);
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
-    @ExceptionHandler
-    private ResponseEntity<ErrorResponse> handleException(EntityNotCreatedException exception) {
-        ErrorResponse response = new ErrorResponse(exception.getMessage());
+    @PatchMapping("/{id}")
+    public ResponseEntity<HttpStatus> update(@RequestBody @Valid StudentDTO studentDTO,
+                                             BindingResult bindingResult, @PathVariable("id") int id) {
+        Student studentToUpdate = convertToStudent(studentDTO);
 
+        studentValidator.validate(studentToUpdate, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            returnErrorsToClient(bindingResult);
+        }
+
+        studentService.update(id, studentToUpdate);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
+        studentService.delete(id);
+        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+    }
+
+    @ExceptionHandler
+    protected ResponseEntity<ErrorResponse> handleException(EntityNotCreatedException exception) {
+        ErrorResponse response = new ErrorResponse(exception.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler
+    protected ResponseEntity<ErrorResponse> handleException(EntityNotFoundException exception) {
+        ErrorResponse response = new ErrorResponse(exception.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
     private Student convertToStudent(StudentDTO studentDTO) {
         return modelMapper.map(studentDTO, Student.class);
     }
