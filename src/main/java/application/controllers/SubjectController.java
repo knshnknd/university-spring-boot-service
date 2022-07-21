@@ -1,6 +1,8 @@
 package application.controllers;
 
+import application.dto.StudentResponse;
 import application.dto.SubjectDTO;
+import application.dto.SubjectResponse;
 import application.jpa.entities.Subject;
 import application.services.SubjectService;
 import application.util.error_responses.ErrorResponse;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static application.util.ErrorsUtil.returnErrorsToClient;
 
@@ -49,7 +52,7 @@ public class SubjectController {
 
         subjectService.save(convertToSubject(subjectDTO));
 
-        return ResponseEntity.ok(HttpStatus.OK); // 200
+        return ResponseEntity.ok(HttpStatus.CREATED); // 200
     }
 
     @ExceptionHandler

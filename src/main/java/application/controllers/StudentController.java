@@ -60,7 +60,7 @@ public class StudentController {
         }
 
         studentService.save(studentToAdd);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
     @ExceptionHandler

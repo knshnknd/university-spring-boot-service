@@ -1,7 +1,6 @@
 package application.jpa.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class StudentGroup {
@@ -10,7 +9,6 @@ public class StudentGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer studentGroupId;
 
-    @NotEmpty(message = "Название группы не должно быть пустым")
     private String studentGroupName;
 
 //    @OneToMany(mappedBy = "fkStudentGroupId")

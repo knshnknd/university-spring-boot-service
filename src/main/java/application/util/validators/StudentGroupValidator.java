@@ -23,10 +23,14 @@ public class StudentGroupValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        StudentGroup department = (StudentGroup) target;
+        StudentGroup studentGroup = (StudentGroup) target;
 
-        if(studentGroupService.findByName(department.getStudentGroupName()).isPresent()) {
-            errors.rejectValue("name", "", "Студенческая группа с таким наименованием уже существует!");
+        if (studentGroup.getStudentGroupName() == null || studentGroup.getStudentGroupName().equals("")) {
+            errors.rejectValue("studentGroupName", "", "The name of the student group must not be empty.");;
+        }
+
+        if(studentGroupService.findByName(studentGroup.getStudentGroupName()).isPresent()) {
+            errors.rejectValue("studentGroupName", "", "A student group with that name already exists.");
         }
     }
 }

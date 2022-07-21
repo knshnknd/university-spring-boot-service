@@ -26,7 +26,7 @@ public class SubjectService {
 
     public Subject findOne(Integer id) {
         Optional<Subject> foundSubject = subjectRepository.findById(id);
-        return foundSubject.orElseThrow(EntityNotFoundException::new);
+        return foundSubject.orElseThrow(() -> new EntityNotFoundException("Дисциплина с таким ID не найдена."));
     }
 
     @Transactional
