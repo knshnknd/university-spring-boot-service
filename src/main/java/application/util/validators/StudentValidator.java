@@ -27,7 +27,8 @@ public class StudentValidator implements Validator {
         Student student = (Student) target;
 
         if (student.getStudentFullName() == null || student.getStudentFullName().equals("")) {
-            errors.rejectValue("studentFullName", "", "The name of the student must not be empty.");;
+            errors.rejectValue("studentFullName", "",
+                    "The name of the student must not be empty.");;
         }
 
         // Обработку на одинаковые ФИО не делаем, потому что могут существовать студенты с одинаковыми ФИО

@@ -1,6 +1,7 @@
 package application.services;
 
 import application.jpa.entities.Subject;
+import application.jpa.entities.Teacher;
 import application.jpa.entities.WorkshopLocation;
 import application.jpa.repositories.WorkshopLocationRepository;
 import application.util.exceptions.EntityNotFoundException;
@@ -32,8 +33,14 @@ public class WorkshopLocationService {
         return workshopLocationOptional.orElseThrow(() -> new EntityNotFoundException(WORKSHOP_LOCATION_NOT_FOUND_ERROR_MESSAGE));
     }
 
+    // Для поиска в валидаторе
     public Optional<WorkshopLocation> findByName(String name) {
         return workshopLocationRepository.findWorkshopLocationByWorkshopLocationFullAddress(name);
+    }
+
+    // Для поиска в WorkshopService при обогащении (enrich)
+    public Optional<WorkshopLocation> findById(Integer id) {
+        return workshopLocationRepository.findById(id);
     }
 
     @Transactional

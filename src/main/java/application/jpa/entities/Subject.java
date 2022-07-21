@@ -1,8 +1,14 @@
 package application.jpa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@JsonIdentityInfo(scope = Subject.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "subjectId")
 public class Subject {
 
     @Id
@@ -11,6 +17,10 @@ public class Subject {
 
     private String subjectName;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "subject")
+    private List<Workshop> workshops;
+
     public Subject() {
     }
 
@@ -18,9 +28,10 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
-    public Subject(Integer subjectId, String subjectName) {
+    public Subject(Integer subjectId, String subjectName, List<Workshop> workshops) {
         this.subjectId = subjectId;
         this.subjectName = subjectName;
+        this.workshops = workshops;
     }
 
     public Integer getSubjectId() {
@@ -37,5 +48,13 @@ public class Subject {
 
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
+    }
+
+    public List<Workshop> getWorkshops() {
+        return workshops;
+    }
+
+    public void setWorkshops(List<Workshop> workshops) {
+        this.workshops = workshops;
     }
 }

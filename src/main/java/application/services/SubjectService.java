@@ -1,5 +1,6 @@
 package application.services;
 
+import application.jpa.entities.StudentGroup;
 import application.jpa.entities.Subject;
 import application.jpa.repositories.SubjectRepository;
 import application.util.exceptions.EntityNotFoundException;
@@ -31,8 +32,14 @@ public class SubjectService {
         return subjectOptional.orElseThrow(() -> new EntityNotFoundException(SUBJECT_NOT_FOUND_ERROR_MESSAGE));
     }
 
+    // Для поиска в валидаторе
     public Optional<Subject> findByName(String name) {
         return subjectRepository.findSubjectBySubjectName(name);
+    }
+
+    // Для поиска в WorkshopService при обогащении (enrich)
+    public Optional<Subject> findById(Integer id) {
+        return subjectRepository.findById(id);
     }
 
     @Transactional

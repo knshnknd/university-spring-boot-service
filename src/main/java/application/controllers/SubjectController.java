@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import static application.util.ErrorsUtil.returnErrorsToClient;
 
 @RestController
-@RequestMapping("/subject")
+@RequestMapping("/subjects")
 public class SubjectController {
 
     private final SubjectService subjectService;

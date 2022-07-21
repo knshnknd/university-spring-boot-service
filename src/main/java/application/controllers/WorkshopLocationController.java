@@ -1,17 +1,12 @@
 package application.controllers;
 
-import application.dto.SubjectDTO;
-import application.dto.SubjectResponse;
 import application.dto.WorkshopLocationDTO;
 import application.dto.WorkshopLocationResponse;
-import application.jpa.entities.Subject;
 import application.jpa.entities.WorkshopLocation;
-import application.services.SubjectService;
 import application.services.WorkshopLocationService;
 import application.util.error_responses.ErrorResponse;
 import application.util.exceptions.EntityNotCreatedException;
 import application.util.exceptions.EntityNotFoundException;
-import application.util.validators.SubjectValidator;
 import application.util.validators.WorkshopLocationValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +21,7 @@ import java.util.ArrayList;
 import static application.util.ErrorsUtil.returnErrorsToClient;
 
 @RestController
-@RequestMapping("/subject")
+@RequestMapping("/workshop_locations")
 public class WorkshopLocationController {
 
     private final WorkshopLocationService workshopLocationService;
@@ -55,7 +50,7 @@ public class WorkshopLocationController {
     @PostMapping
     public ResponseEntity<HttpStatus> create(@RequestBody @Valid WorkshopLocationDTO workshopLocationDTO,
                                              BindingResult bindingResult) {
-        WorkshopLocation workshopLocationToCreate = convertToSubject(workshopLocationDTO);
+        WorkshopLocation workshopLocationToCreate = convertToWorkshopLocation(workshopLocationDTO);
 
         workshopLocationValidator.validate(workshopLocationToCreate, bindingResult);
 
@@ -70,7 +65,7 @@ public class WorkshopLocationController {
     @PatchMapping("/{id}")
     public ResponseEntity<HttpStatus> update(@RequestBody @Valid WorkshopLocationDTO workshopLocationDTO,
                                                        BindingResult bindingResult, @PathVariable("id") int id) {
-        WorkshopLocation workshopLocationToUpdate = convertToSubject(workshopLocationDTO);
+        WorkshopLocation workshopLocationToUpdate = convertToWorkshopLocation(workshopLocationDTO);
 
         workshopLocationValidator.validate(workshopLocationToUpdate, bindingResult);
 
@@ -101,7 +96,7 @@ public class WorkshopLocationController {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
-    private WorkshopLocation convertToSubject(WorkshopLocationDTO workshopLocationDTO) {
+    private WorkshopLocation convertToWorkshopLocation(WorkshopLocationDTO workshopLocationDTO) {
         return modelMapper.map(workshopLocationDTO, WorkshopLocation.class);
     }
 }

@@ -1,5 +1,6 @@
 package application.services;
 
+import application.jpa.entities.Subject;
 import application.jpa.entities.Teacher;
 import application.jpa.repositories.TeacherRepository;
 import application.util.exceptions.EntityNotFoundException;
@@ -29,6 +30,11 @@ public class TeacherService {
     public Teacher findOne(Integer id) {
         Optional<Teacher> teacherOptional = teacherRepository.findById(id);
         return teacherOptional.orElseThrow(() -> new EntityNotFoundException(TEACHER_NOT_FOUND_ERROR_MESSAGE));
+    }
+
+    // Для поиска в WorkshopService при обогащении (enrich)
+    public Optional<Teacher> findById(Integer id) {
+        return teacherRepository.findById(id);
     }
 
     @Transactional

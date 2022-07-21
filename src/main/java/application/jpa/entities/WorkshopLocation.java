@@ -1,9 +1,14 @@
 package application.jpa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(scope = WorkshopLocation.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "workshopLocationId")
 public class WorkshopLocation {
 
     @Id
@@ -11,7 +16,8 @@ public class WorkshopLocation {
     private Integer workshopLocationId;
     private String workshopLocationFullAddress;
 
-    @OneToMany(mappedBy = "workshopLocationId")
+    @JsonIgnore
+    @OneToMany(mappedBy = "workshopLocation")
     private List<Workshop> workshops;
 
     public WorkshopLocation() {

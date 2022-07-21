@@ -1,6 +1,7 @@
 package application.jpa.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -16,10 +17,12 @@ public class Student {
 
     private String studentFullName;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(referencedColumnName = "studentGroupId")
     private StudentGroup studentGroup;
 
+    // Set?
     @ManyToMany
     @JoinTable(
             name = "student_workshops",

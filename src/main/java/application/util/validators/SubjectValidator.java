@@ -28,11 +28,13 @@ public class SubjectValidator implements Validator {
         Subject subject = (Subject) target;
 
         if (subject.getSubjectName() == null || subject.getSubjectName().equals("")) {
-            errors.rejectValue("subjectName", "", "The name of the subject must not be empty.");;
+            errors.rejectValue("subjectName", "",
+                    "The name of the subject must not be empty.");;
         }
 
         if(subjectService.findByName(subject.getSubjectName()).isPresent()) {
-            errors.rejectValue("subjectName", "", "A subject with that name already exists.");
+            errors.rejectValue("subjectName", "",
+                    "A subject with that name already exists.");
         }
     }
 }

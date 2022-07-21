@@ -26,11 +26,13 @@ public class StudentGroupValidator implements Validator {
         StudentGroup studentGroup = (StudentGroup) target;
 
         if (studentGroup.getStudentGroupName() == null || studentGroup.getStudentGroupName().equals("")) {
-            errors.rejectValue("studentGroupName", "", "The name of the student group must not be empty.");;
+            errors.rejectValue("studentGroupName", "",
+                    "The name of the student group must not be empty.");;
         }
 
         if(studentGroupService.findByName(studentGroup.getStudentGroupName()).isPresent()) {
-            errors.rejectValue("studentGroupName", "", "A student group with that name already exists.");
+            errors.rejectValue("studentGroupName", "",
+                    "A student group with that name already exists.");
         }
     }
 }

@@ -29,11 +29,13 @@ public class TeacherValidator implements Validator {
         Teacher teacher = (Teacher) target;
 
         if (teacher.getTeacherFullName() == null || teacher.getTeacherFullName().equals("")) {
-            errors.rejectValue("teacherFullName", "", "The name of the teacher must not be empty.");;
+            errors.rejectValue("teacherFullName", "",
+                    "The name of the teacher must not be empty.");;
         }
 
         if (teacher.getTeacherScienceDegree() == null || teacher.getTeacherScienceDegree().equals("")) {
-            errors.rejectValue("teacherScienceDegree", "", "The science degree of the teacher must not be empty.");;
+            errors.rejectValue("teacherScienceDegree", "",
+                    "The science degree of the teacher must not be empty.");;
         }
 
         // Обработку на одинаковые ФИО не делаем, потому что могут существовать преподаватели с одинаковыми ФИО
