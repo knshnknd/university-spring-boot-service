@@ -45,7 +45,7 @@ public class StudentGroupService {
 
     @Transactional
     public void update(int id, StudentGroup studentGroup) {
-        studentGroup.setStudentGroupId(id);
+        studentGroup.setStudentGroupId(findOne(id).getStudentGroupId());
         studentGroupRepository.save(studentGroup);
     }
 

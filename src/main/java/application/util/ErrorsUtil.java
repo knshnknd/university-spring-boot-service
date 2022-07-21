@@ -8,6 +8,8 @@ import org.springframework.validation.FieldError;
 import java.util.List;
 
 public class ErrorsUtil {
+
+    // Создание и оформление текста исключений
     public static void returnErrorsToClient(BindingResult bindingResult) {
         StringBuilder errorMessage = new StringBuilder();
 

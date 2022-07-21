@@ -39,13 +39,9 @@ public class StudentService {
         studentRepository.save(student);
     }
 
-    public Optional<Student> findByName(String name) {
-        return studentRepository.findStudentByStudentFullName(name);
-    }
-
     @Transactional
     public void update(int id, Student student) {
-        student.setStudentId(id);
+        student.setStudentId(findOne(id).getStudentId());
         enrichStudent(student);
         studentRepository.save(student);
     }

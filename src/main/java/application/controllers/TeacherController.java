@@ -1,13 +1,15 @@
 package application.controllers;
 
 import application.dto.StudentDTO;
-import application.dto.StudentResponse;
+import application.dto.TeacherDTO;
+import application.dto.TeacherResponse;
 import application.jpa.entities.Student;
-import application.services.StudentService;
+import application.jpa.entities.Teacher;
+import application.services.TeacherService;
 import application.util.error_responses.ErrorResponse;
 import application.util.exceptions.EntityNotCreatedException;
 import application.util.exceptions.EntityNotFoundException;
-import application.util.validators.StudentValidator;
+import application.util.validators.TeacherValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,69 +18,67 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 import java.util.ArrayList;
 
 import static application.util.ErrorsUtil.returnErrorsToClient;
 
 @RestController
-@RequestMapping("/students")
-public class StudentController {
-    private final StudentService studentService;
-    private final StudentValidator studentValidator;
+@RequestMapping("/teachers")
+public class TeacherController {
+    private final TeacherService teacherService;
+    private final TeacherValidator teacherValidator;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public StudentController(StudentService studentService,
-                             StudentValidator studentValidator, ModelMapper modelMapper) {
-        this.studentService = studentService;
-        this.studentValidator = studentValidator;
+    public TeacherController(TeacherService teacherService, TeacherValidator teacherValidator, ModelMapper modelMapper) {
+        this.teacherService = teacherService;
+        this.teacherValidator = teacherValidator;
         this.modelMapper = modelMapper;
     }
 
     @GetMapping
-    public StudentResponse getAll() {
+    public TeacherResponse getAll() {
         // Оборачиваем список из всех объектов в один внешний объект для пересылки
-        return new StudentResponse(new ArrayList<>(studentService.findAll()));
+        return new TeacherResponse(new ArrayList<>(teacherService.findAll()));
     }
 
     @GetMapping("/{id}")
-    public Student getOne(@PathVariable("id") Integer id) {
-        return studentService.findOne(id);
+    public Teacher getOne(@PathVariable("id") Integer id) {
+        return teacherService.findOne(id);
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> create(@RequestBody @Valid StudentDTO studentDTO, BindingResult bindingResult) {
-        Student studentToCreate = convertToStudent(studentDTO);
+    public ResponseEntity<HttpStatus> create(@RequestBody @Valid TeacherDTO teacherDTO, BindingResult bindingResult) {
+        Teacher teacherToCreate = convertToTeacher(teacherDTO);
 
-        studentValidator.validate(studentToCreate, bindingResult);
+        teacherValidator.validate(teacherToCreate, bindingResult);
 
         if (bindingResult.hasErrors()) {
             returnErrorsToClient(bindingResult);
         }
 
-        studentService.save(studentToCreate);
+        teacherService.save(teacherToCreate);
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<HttpStatus> update(@RequestBody @Valid StudentDTO studentDTO,
+    public ResponseEntity<HttpStatus> update(@RequestBody @Valid TeacherDTO teacherDTO,
                                              BindingResult bindingResult, @PathVariable("id") int id) {
-        Student studentToUpdate = convertToStudent(studentDTO);
+        Teacher teacherToUpdate = convertToTeacher(teacherDTO);
 
-        studentValidator.validate(studentToUpdate, bindingResult);
+        teacherValidator.validate(teacherToUpdate, bindingResult);
 
         if (bindingResult.hasErrors()) {
             returnErrorsToClient(bindingResult);
         }
 
-        studentService.update(id, studentToUpdate);
+        teacherService.update(id, teacherToUpdate);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
-        studentService.delete(id);
+        teacherService.delete(id);
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
@@ -93,10 +93,8 @@ public class StudentController {
         ErrorResponse response = new ErrorResponse(exception.getMessage());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
-    private Student convertToStudent(StudentDTO studentDTO) {
-        return modelMapper.map(studentDTO, Student.class);
+    private Teacher convertToTeacher(TeacherDTO teacherDTO) {
+        return modelMapper.map(teacherDTO, Teacher.class);
     }
-    private StudentDTO convertToStudentDTO(Student student) {
-        return modelMapper.map(student, StudentDTO.class);
-    }
+
 }

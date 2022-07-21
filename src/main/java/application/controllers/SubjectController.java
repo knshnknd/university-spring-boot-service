@@ -1,7 +1,6 @@
 package application.controllers;
 
 import application.dto.*;
-import application.jpa.entities.StudentGroup;
 import application.jpa.entities.Subject;
 import application.services.SubjectService;
 import application.util.error_responses.ErrorResponse;

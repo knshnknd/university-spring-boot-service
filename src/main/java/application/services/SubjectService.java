@@ -42,7 +42,7 @@ public class SubjectService {
 
     @Transactional
     public void update(int id, Subject subject) {
-        subject.setSubjectId(id);
+        subject.setSubjectId(findOne(id).getSubjectId());
         subjectRepository.save(subject);
     }
 

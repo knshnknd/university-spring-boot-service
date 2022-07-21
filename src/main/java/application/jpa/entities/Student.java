@@ -36,6 +36,13 @@ public class Student {
         this.studentGroup = studentGroup;
     }
 
+    public Student(Integer studentId, String studentFullName, StudentGroup studentGroup, List<Workshop> workshops) {
+        this.studentId = studentId;
+        this.studentFullName = studentFullName;
+        this.studentGroup = studentGroup;
+        this.workshops = workshops;
+    }
+
     public Integer getStudentId() {
         return studentId;
     }
