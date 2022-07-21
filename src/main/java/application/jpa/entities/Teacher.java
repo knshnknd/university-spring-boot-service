@@ -12,7 +12,7 @@ public class Teacher {
     private String teacherFullName;
     private String teacherScienceDegree;
 
-    @OneToMany(mappedBy = "fkTeacherId")
+    @OneToMany(mappedBy = "teacherId")
     private List<Workshop> workshops;
 
     public Teacher() {

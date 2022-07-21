@@ -1,7 +1,6 @@
 package application.services;
 
 import application.jpa.entities.Student;
-import application.jpa.entities.StudentGroup;
 import application.jpa.repositories.StudentRepository;
 import application.util.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +47,7 @@ public class StudentService {
 
     @Transactional
     public void delete(int id) {
-        studentRepository.deleteStudentByStudentId(id);
+        studentRepository.deleteById(id);
     }
 
     private void enrichStudent(Student student) {

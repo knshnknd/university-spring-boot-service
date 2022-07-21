@@ -1,8 +1,6 @@
 package application.services;
 
-import application.jpa.entities.Subject;
 import application.jpa.entities.Teacher;
-import application.jpa.repositories.SubjectRepository;
 import application.jpa.repositories.TeacherRepository;
 import application.util.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class TeacherService {
-    private static final String TEACHER_NOT_FOUND_ERROR_MESSAGE = "Subject with this ID was not found.";
+    private static final String TEACHER_NOT_FOUND_ERROR_MESSAGE = "Teacher with this ID was not found.";
 
     private final TeacherRepository teacherRepository;
 
@@ -46,6 +44,6 @@ public class TeacherService {
 
     @Transactional
     public void delete(int id) {
-        teacherRepository.deleteTeacherByTeacherId(id);
+        teacherRepository.deleteById(id);
     }
 }

@@ -51,7 +51,7 @@ public class StudentGroupService {
 
     @Transactional
     public void delete(int id) {
-        studentGroupRepository.deleteStudentGroupByStudentGroupId(id);
+        studentGroupRepository.deleteById(id);
     }
 
 }

@@ -8,5 +8,4 @@ import java.util.Optional;
 
 @Repository
 public interface WorkshopRepository extends JpaRepository<Workshop, Integer> {
-    void deleteLectureByWorkshopId(Integer id);
 }

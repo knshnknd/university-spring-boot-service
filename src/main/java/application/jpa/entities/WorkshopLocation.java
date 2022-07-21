@@ -11,7 +11,7 @@ public class WorkshopLocation {
     private Integer workshopLocationId;
     private String workshopLocationFullAddress;
 
-    @OneToMany(mappedBy = "fkWorkshopLocationId")
+    @OneToMany(mappedBy = "workshopLocationId")
     private List<Workshop> workshops;
 
     public WorkshopLocation() {

@@ -31,13 +31,13 @@ public class SubjectService {
         return subjectOptional.orElseThrow(() -> new EntityNotFoundException(SUBJECT_NOT_FOUND_ERROR_MESSAGE));
     }
 
+    public Optional<Subject> findByName(String name) {
+        return subjectRepository.findSubjectBySubjectName(name);
+    }
+
     @Transactional
     public void save(Subject subject) {
         subjectRepository.save(subject);
-    }
-
-    public Optional<Subject> findByName(String name) {
-        return subjectRepository.findSubjectBySubjectName(name);
     }
 
     @Transactional
@@ -48,6 +48,6 @@ public class SubjectService {
 
     @Transactional
     public void delete(int id) {
-        subjectRepository.deleteSubjectBySubjectId(id);
+        subjectRepository.deleteById(id);
     }
 }
