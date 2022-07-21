@@ -6,7 +6,7 @@ import application.services.StudentGroupService;
 import application.util.error_responses.ErrorResponse;
 import application.util.exceptions.EntityNotCreatedException;
 import application.util.validators.StudentGroupValidator;
-import org.hibernate.hql.internal.ast.ErrorReporter;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +18,18 @@ import javax.validation.Valid;
 import static application.util.ErrorsUtil.returnErrorsToClient;
 
 @RestController
-@RequestMapping("/group")
+@RequestMapping("/groups")
 public class StudentGroupController {
     private final StudentGroupService studentGroupService;
     private final StudentGroupValidator studentGroupValidator;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public StudentGroupController(StudentGroupService studentGroupService, StudentGroupValidator studentGroupValidator) {
+    public StudentGroupController(StudentGroupService studentGroupService,
+                                  StudentGroupValidator studentGroupValidator, ModelMapper modelMapper) {
         this.studentGroupService = studentGroupService;
         this.studentGroupValidator = studentGroupValidator;
+        this.modelMapper = modelMapper;
     }
 
     // GET ALL
@@ -57,9 +60,7 @@ public class StudentGroupController {
     }
 
     private StudentGroup convertToStudentGroup(StudentGroupDTO studentGroupDTO) {
-        StudentGroup studentGroup = new StudentGroup();
-        studentGroup.setStudentGroupName(studentGroup.getStudentGroupName());
-        return studentGroup;
+        return modelMapper.map(studentGroupDTO, StudentGroup.class);
     }
 
 }

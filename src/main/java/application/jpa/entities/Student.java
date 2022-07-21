@@ -17,8 +17,8 @@ public class Student {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "student_group_name", referencedColumnName = "studentGroupName")
-    private StudentGroup studentGroupName;
+    @JoinColumn(name = "student_group", referencedColumnName = "studentGroupName")
+    private StudentGroup studentGroup;
 
     @ManyToMany
     @JoinTable(
@@ -31,10 +31,10 @@ public class Student {
     public Student() {
     }
 
-    public Student(Integer studentId, String studentFullName, StudentGroup studentGroupName, List<Workshop> workshops) {
+    public Student(Integer studentId, String studentFullName, StudentGroup studentGroup, List<Workshop> workshops) {
         this.studentId = studentId;
         this.studentFullName = studentFullName;
-        this.studentGroupName = studentGroupName;
+        this.studentGroup = studentGroup;
         this.workshops = workshops;
     }
 
@@ -54,19 +54,19 @@ public class Student {
         this.studentFullName = studentFullName;
     }
 
+    public StudentGroup getStudentGroup() {
+        return studentGroup;
+    }
+
+    public void setStudentGroup(StudentGroup studentGroup) {
+        this.studentGroup = studentGroup;
+    }
+
     public List<Workshop> getWorkshops() {
         return workshops;
     }
 
     public void setWorkshops(List<Workshop> workshops) {
         this.workshops = workshops;
-    }
-
-    public StudentGroup getStudentGroupName() {
-        return studentGroupName;
-    }
-
-    public void setStudentGroupName(StudentGroup studentGroupName) {
-        this.studentGroupName = studentGroupName;
     }
 }

@@ -1,10 +1,12 @@
 package application;
 
 import application.services.DataPreloadService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class UniversitySpringBootServiceApplication {
@@ -14,6 +16,11 @@ public class UniversitySpringBootServiceApplication {
 		DataPreloadService dataPreloadService = context.getBean("dataPreloadService", DataPreloadService.class);
 
 		dataPreloadService.preloadData();
+	}
+
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
 
 }

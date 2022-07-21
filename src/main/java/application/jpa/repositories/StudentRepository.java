@@ -10,6 +10,5 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
     Optional<Student> findStudentByStudentFullName(String fullName);
-    List<Student> findStudentsByStudentFullNameStartingWith(String nameStarting);
     void deleteStudentByStudentId(Integer id);
 }

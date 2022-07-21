@@ -3,15 +3,14 @@ package application.controllers;
 import application.dto.SubjectDTO;
 import application.jpa.entities.Subject;
 import application.services.SubjectService;
-import application.util.ErrorsUtil;
 import application.util.error_responses.ErrorResponse;
 import application.util.exceptions.EntityNotCreatedException;
 import application.util.exceptions.EntityNotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,10 +23,12 @@ import static application.util.ErrorsUtil.returnErrorsToClient;
 public class SubjectController {
 
     private final SubjectService subjectService;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public SubjectController(SubjectService subjectService) {
+    public SubjectController(SubjectService subjectService, ModelMapper modelMapper) {
         this.subjectService = subjectService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -66,15 +67,10 @@ public class SubjectController {
     }
 
     private Subject convertToSubject(SubjectDTO subjectDTO) {
-        Subject subject = new Subject();
-        subject.setSubjectName(subjectDTO.getSubjectName());
-        // При увеличении количества полей для маппинга - использовать ModelMapper
-        return subject;
+        return modelMapper.map(subjectDTO, Subject.class);
     }
 
     private SubjectDTO convertToSubjectDTO(Subject subject) {
-         SubjectDTO subjectDTO = new SubjectDTO();
-         subjectDTO.setSubjectName(subject.getSubjectName());
-         return subjectDTO;
+        return modelMapper.map(subject, SubjectDTO.class);
     }
 }
