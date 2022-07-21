@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, Integer> {
-
+    Optional<Subject> findSubjectBySubjectName(String name);
     void deleteSubjectBySubjectId(Integer id);
 }

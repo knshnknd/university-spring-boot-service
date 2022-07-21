@@ -1,6 +1,5 @@
 package application.dto;
 
-
 public class StudentGroupDTO {
 
     private String studentGroupName;

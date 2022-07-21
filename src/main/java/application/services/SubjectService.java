@@ -1,6 +1,8 @@
 package application.services;
 
+import application.jpa.entities.StudentGroup;
 import application.jpa.entities.Subject;
+import application.jpa.repositories.StudentGroupRepository;
 import application.jpa.repositories.SubjectRepository;
 import application.util.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class SubjectService {
+    private static final String SUBJECT_NOT_FOUND_ERROR_MESSAGE = "Student group with this ID was not found.";
+
     private final SubjectRepository subjectRepository;
 
     @Autowired
@@ -25,16 +29,27 @@ public class SubjectService {
     }
 
     public Subject findOne(Integer id) {
-        Optional<Subject> foundSubject = subjectRepository.findById(id);
-        return foundSubject.orElseThrow(() -> new EntityNotFoundException("Дисциплина с таким ID не найдена."));
+        Optional<Subject> subjectOptional = subjectRepository.findById(id);
+        return subjectOptional.orElseThrow(() -> new EntityNotFoundException(SUBJECT_NOT_FOUND_ERROR_MESSAGE));
     }
 
     @Transactional
     public void save(Subject subject) {
-
-        // Здесь может быть обращение к методу enrich для дополнительного
-        // обогащения сущности данными (например, время создания)
-
         subjectRepository.save(subject);
+    }
+
+    public Optional<Subject> findByName(String name) {
+        return subjectRepository.findSubjectBySubjectName(name);
+    }
+
+    @Transactional
+    public void update(int id, Subject subject) {
+        subject.setSubjectId(id);
+        subjectRepository.save(subject);
+    }
+
+    @Transactional
+    public void delete(int id) {
+        subjectRepository.deleteSubjectBySubjectId(id);
     }
 }

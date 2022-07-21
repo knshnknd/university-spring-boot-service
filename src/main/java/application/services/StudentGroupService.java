@@ -13,6 +13,8 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class StudentGroupService {
+    private static final String STUDENT_NOT_FOUND_ERROR_MESSAGE = "Student group with this ID was not found.";
+
     private final StudentGroupRepository studentGroupRepository;
 
     @Autowired
@@ -25,8 +27,8 @@ public class StudentGroupService {
     }
 
     public StudentGroup findOne(Integer id) {
-        Optional<StudentGroup> foundSubject = studentGroupRepository.findById(id);
-        return foundSubject.orElseThrow(() -> new EntityNotFoundException("Student group with this ID was not found."));
+        Optional<StudentGroup> studentGroupOptional = studentGroupRepository.findById(id);
+        return studentGroupOptional.orElseThrow(() -> new EntityNotFoundException(STUDENT_NOT_FOUND_ERROR_MESSAGE));
     }
 
     @Transactional
@@ -39,9 +41,9 @@ public class StudentGroupService {
     }
 
     @Transactional
-    public void update(int id, StudentGroup studentGroupUpdated) {
-        studentGroupUpdated.setStudentGroupId(id);
-        studentGroupRepository.save(studentGroupUpdated);
+    public void update(int id, StudentGroup studentGroup) {
+        studentGroup.setStudentGroupId(id);
+        studentGroupRepository.save(studentGroup);
     }
 
     @Transactional

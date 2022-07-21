@@ -1,18 +1,14 @@
 package application.jpa.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
 
-// Для работы с нечисловыми ключами нужно имплементить Serializable
 @Entity
-public class Subject implements Serializable {
+public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer subjectId;
 
-    @NotEmpty(message = "Название дисциплины не должно быть пустым.")
     private String subjectName;
 
     public Subject() {
