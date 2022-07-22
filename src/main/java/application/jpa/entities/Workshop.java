@@ -43,6 +43,10 @@ public class Workshop {
     public Workshop() {
     }
 
+    public Workshop(Long workshopId) {
+        this.workshopId = workshopId;
+    }
+
     public Workshop(Subject subject, WorkshopLocation workshopLocation, Teacher teacher,
                     Date workshopDate, List<Student> students) {
         this.subject = subject;

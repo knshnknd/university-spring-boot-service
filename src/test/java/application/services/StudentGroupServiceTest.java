@@ -1,6 +1,5 @@
 package application.services;
 
-import application.jpa.entities.Student;
 import application.jpa.entities.StudentGroup;
 import application.jpa.repositories.StudentGroupRepository;
 import org.junit.jupiter.api.Test;
@@ -61,11 +60,10 @@ class StudentGroupServiceTest {
 
     @Test
     void findOptionalByIdTest() {
-        given(studentGroupRepository.findStudentGroupByStudentGroupName("Group 1"))
+        given(studentGroupRepository.findById(1))
                 .willReturn(Optional.of(new StudentGroup(1, "Group 1")));
         Optional<StudentGroup> studentGroupOptional = studentGroupService.findOptionalById(1);
-        StudentGroup studentGroup = studentGroupService.findByStudentGroupName("Group 1").get();
-        assertThat(studentGroup.getStudentGroupName()).isEqualTo("Group 1");
+        assertThat(studentGroupOptional.get().getStudentGroupId()).isEqualTo(1);
     }
 
     @Test
