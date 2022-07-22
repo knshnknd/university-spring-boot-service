@@ -75,9 +75,10 @@ class WorkshopControllerTest {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = simpleDateFormat.parse("2022-07-22");
 
-        given(workshopService.findOne(1L)).willReturn(new Workshop(subject, workshopLocation, teacher, date, students));
+        given(workshopService.findOne(1L)).willReturn(new Workshop(1L, subject, workshopLocation,
+                teacher, date, students));
 
-        mockMvc.perform(get("/students/1"))
+        mockMvc.perform(get("/workshops/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON));

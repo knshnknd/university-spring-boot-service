@@ -35,8 +35,9 @@ public class TeacherService {
         return teacherRepository.findById(id);
     }
 
-    public void save(Teacher teacher) {
+    public Teacher save(Teacher teacher) {
         teacherRepository.save(teacher);
+        return teacher;
     }
 
     public void update(int id, Teacher teacher) {

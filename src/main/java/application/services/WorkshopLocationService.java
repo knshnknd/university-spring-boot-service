@@ -39,8 +39,9 @@ public class WorkshopLocationService {
         return workshopLocationRepository.findById(id);
     }
 
-    public void save(WorkshopLocation workshopLocation) {
+    public WorkshopLocation save(WorkshopLocation workshopLocation) {
         workshopLocationRepository.save(workshopLocation);
+        return workshopLocation;
     }
 
     public void update(int id, WorkshopLocation workshopLocation) {

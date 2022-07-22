@@ -39,8 +39,9 @@ public class SubjectService {
         return subjectRepository.findById(id);
     }
 
-    public void save(Subject subject) {
+    public Subject save(Subject subject) {
         subjectRepository.save(subject);
+        return subject;
     }
 
     public void update(int id, Subject subject) {

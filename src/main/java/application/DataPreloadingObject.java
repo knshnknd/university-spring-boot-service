@@ -1,7 +1,8 @@
-package application.services;
+package application;
 
 import application.jpa.entities.*;
 import application.jpa.repositories.*;
+import application.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class DataPreloadService {
+public class DataPreloadingObject {
     private StudentRepository studentRepository;
     private StudentGroupRepository studentGroupRepository;
     private SubjectRepository subjectRepository;
@@ -25,10 +26,10 @@ public class DataPreloadService {
     private StudentService studentService;
 
     @Autowired
-    public DataPreloadService(StudentRepository studentRepository, StudentGroupRepository studentGroupRepository,
-                              SubjectRepository subjectRepository, TeacherRepository teacherRepository,
-                              WorkshopRepository workshopRepository, WorkshopLocationRepository workshopLocationRepository,
-                              StudentService studentService) {
+    public DataPreloadingObject(StudentRepository studentRepository, StudentGroupRepository studentGroupRepository,
+                                SubjectRepository subjectRepository, TeacherRepository teacherRepository,
+                                WorkshopRepository workshopRepository, WorkshopLocationRepository workshopLocationRepository,
+                                StudentService studentService) {
         this.studentRepository = studentRepository;
         this.studentGroupRepository = studentGroupRepository;
         this.subjectRepository = subjectRepository;

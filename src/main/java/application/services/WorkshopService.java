@@ -43,9 +43,10 @@ public class WorkshopService {
         return workshopOptional.orElseThrow(() -> new EntityNotFoundException(WORKSHOP_NOT_FOUND_ERROR_MESSAGE));
     }
 
-    public void save(Workshop workshop) {
+    public Workshop save(Workshop workshop) {
         enrichWorkshop(workshop);
         workshopRepository.save(workshop);
+        return workshop;
     }
 
     public void update(Long id, Workshop workshop) {

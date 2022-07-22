@@ -40,9 +40,10 @@ public class StudentService {
         return studentRepository.findById(id);
     }
 
-    public void save(Student student) {
+    public Student save(Student student) {
         enrichStudent(student);
         studentRepository.save(student);
+        return student;
     }
 
     public void update(int id, Student student) {

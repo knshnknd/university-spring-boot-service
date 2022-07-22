@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class StudentGroupService {
+public class    StudentGroupService {
     private static final String STUDENT_GROUP_NOT_FOUND_ERROR_MESSAGE = "Student group with this ID was not found.";
 
     private final StudentGroupRepository studentGroupRepository;
@@ -39,8 +39,9 @@ public class StudentGroupService {
         return studentGroupRepository.findById(id);
     }
 
-    public void save(StudentGroup studentGroup) {
+    public StudentGroup save(StudentGroup studentGroup) {
         studentGroupRepository.save(studentGroup);
+        return studentGroup;
     }
 
     public void update(int id, StudentGroup studentGroup) {
