@@ -1,7 +1,7 @@
-package application.util;
+package application.exceptions;
 
 
-import application.util.exceptions.EntityNotCreatedException;
+import application.exceptions.EntityNotCreatedException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 

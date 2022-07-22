@@ -1,13 +1,10 @@
 package application.controllers;
 
-import application.dto.WorkshopDTO;
-import application.dto.WorkshopResponse;
+import application.dto.requests.WorkshopRequestDto;
+import application.dto.responses.WorkshopResponseDto;
 import application.jpa.entities.Workshop;
 import application.services.WorkshopService;
-import application.util.ApiError;
-import application.util.exceptions.EntityNotCreatedException;
-import application.util.exceptions.EntityNotFoundException;
-import application.util.validators.WorkshopValidator;
+import application.validators.WorkshopValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.stream.Collectors;
 
-import static application.util.ErrorsUtil.returnErrorsToClient;
+import static application.exceptions.ErrorsUtil.returnErrorsToClient;
 
 @RestController
 @RequestMapping("/workshops")
@@ -36,23 +33,23 @@ public class WorkshopController {
     }
 
     @GetMapping
-    public WorkshopResponse getAll() {
+    public WorkshopResponseDto getAll() {
         // Оборачиваем список из всех объектов в один внешний объект для пересылки
-        return new WorkshopResponse(workshopService.findAll()
+        return new WorkshopResponseDto(workshopService.findAll()
                                                     .stream()
                                                     .map(this::convertToWorkshopDTO)
                                                     .collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public Workshop getOne(@PathVariable("id") Integer id) {
+    public Workshop getOne(@PathVariable("id") Long id) {
         return workshopService.findOne(id);
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> create(@RequestBody @Valid WorkshopDTO workshopDTO,
+    public ResponseEntity<HttpStatus> create(@RequestBody @Valid WorkshopRequestDto workshopRequestDTO,
                                              BindingResult bindingResult) {
-        Workshop workshopToCreate = convertToWorkshop(workshopDTO);
+        Workshop workshopToCreate = convertToWorkshop(workshopRequestDTO);
 
         workshopValidator.validate(workshopToCreate, bindingResult);
 
@@ -65,9 +62,9 @@ public class WorkshopController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<HttpStatus> update(@RequestBody @Valid WorkshopDTO workshopDTO,
-                                             BindingResult bindingResult, @PathVariable("id") int id) {
-        Workshop workshopToUpdate = convertToWorkshop(workshopDTO);
+    public ResponseEntity<HttpStatus> update(@RequestBody @Valid WorkshopRequestDto workshopRequestDTO,
+                                             BindingResult bindingResult, @PathVariable("id") Long id) {
+        Workshop workshopToUpdate = convertToWorkshop(workshopRequestDTO);
 
         workshopValidator.validate(workshopToUpdate, bindingResult);
 
@@ -80,15 +77,15 @@ public class WorkshopController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
+    public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) {
         workshopService.delete(id);
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
-    private Workshop convertToWorkshop(WorkshopDTO workshopDTO) {
-        return modelMapper.map(workshopDTO, Workshop.class);
+    private Workshop convertToWorkshop(WorkshopRequestDto workshopRequestDTO) {
+        return modelMapper.map(workshopRequestDTO, Workshop.class);
     }
-    private WorkshopDTO convertToWorkshopDTO(Workshop workshop) {
-        return modelMapper.map(workshop, WorkshopDTO.class);
+    private WorkshopRequestDto convertToWorkshopDTO(Workshop workshop) {
+        return modelMapper.map(workshop, WorkshopRequestDto.class);
     }
 }

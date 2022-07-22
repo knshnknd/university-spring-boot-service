@@ -1,6 +1,6 @@
-package application.dto;
+package application.dto.requests;
 
-public class TeacherDTO {
+public class TeacherRequestDto {
 
     private String teacherFullName;
     private String teacherScienceDegree;

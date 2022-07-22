@@ -1,13 +1,10 @@
 package application.controllers;
 
-import application.dto.TeacherDTO;
-import application.dto.TeacherResponse;
+import application.dto.requests.TeacherRequestDto;
+import application.dto.responses.TeacherResponseDto;
 import application.jpa.entities.Teacher;
 import application.services.TeacherService;
-import application.util.ApiError;
-import application.util.exceptions.EntityNotCreatedException;
-import application.util.exceptions.EntityNotFoundException;
-import application.util.validators.TeacherValidator;
+import application.validators.TeacherValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static application.util.ErrorsUtil.returnErrorsToClient;
+import static application.exceptions.ErrorsUtil.returnErrorsToClient;
 
 @RestController
 @RequestMapping("/teachers")
@@ -34,9 +31,9 @@ public class TeacherController {
     }
 
     @GetMapping
-    public TeacherResponse getAll() {
+    public TeacherResponseDto getAll() {
         // Оборачиваем список из всех объектов в один внешний объект для пересылки
-        return new TeacherResponse(teacherService.findAll());
+        return new TeacherResponseDto(teacherService.findAll());
     }
 
     @GetMapping("/{id}")
@@ -45,8 +42,8 @@ public class TeacherController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> create(@RequestBody @Valid TeacherDTO teacherDTO, BindingResult bindingResult) {
-        Teacher teacherToCreate = convertToTeacher(teacherDTO);
+    public ResponseEntity<HttpStatus> create(@RequestBody @Valid TeacherRequestDto teacherRequestDTO, BindingResult bindingResult) {
+        Teacher teacherToCreate = convertToTeacher(teacherRequestDTO);
 
         teacherValidator.validate(teacherToCreate, bindingResult);
 
@@ -59,9 +56,9 @@ public class TeacherController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<HttpStatus> update(@RequestBody @Valid TeacherDTO teacherDTO,
+    public ResponseEntity<HttpStatus> update(@RequestBody @Valid TeacherRequestDto teacherRequestDTO,
                                              BindingResult bindingResult, @PathVariable("id") int id) {
-        Teacher teacherToUpdate = convertToTeacher(teacherDTO);
+        Teacher teacherToUpdate = convertToTeacher(teacherRequestDTO);
 
         teacherValidator.validate(teacherToUpdate, bindingResult);
 
@@ -79,8 +76,8 @@ public class TeacherController {
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
-    private Teacher convertToTeacher(TeacherDTO teacherDTO) {
-        return modelMapper.map(teacherDTO, Teacher.class);
+    private Teacher convertToTeacher(TeacherRequestDto teacherRequestDTO) {
+        return modelMapper.map(teacherRequestDTO, Teacher.class);
     }
 
 }

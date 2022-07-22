@@ -1,13 +1,13 @@
-package application.dto;
+package application.dto.responses;
 
 import application.jpa.entities.Subject;
 
 import java.util.List;
 
-public class SubjectResponse {
+public class SubjectResponseDto {
     private List<Subject> subjects;
 
-    public SubjectResponse(List<Subject> subjects) {
+    public SubjectResponseDto(List<Subject> subjects) {
         this.subjects = subjects;
     }
 

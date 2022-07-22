@@ -1,6 +1,6 @@
-package application.dto;
+package application.dto.requests;
 
-public class StudentGroupDTO {
+public class StudentGroupRequestDto {
 
     private String studentGroupName;
 

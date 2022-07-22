@@ -1,4 +1,4 @@
-package application.dto;
+package application.dto.requests;
 
 import application.jpa.entities.Student;
 import application.jpa.entities.Subject;
@@ -9,7 +9,7 @@ import application.jpa.entities.WorkshopLocation;
 import java.util.Date;
 import java.util.List;
 
-public class WorkshopDTO {
+public class WorkshopRequestDto {
 
     private Subject subject;
     private WorkshopLocation workshopLocation;

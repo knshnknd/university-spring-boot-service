@@ -1,4 +1,4 @@
-package application.util;
+package application.exceptions;
 
 public class ApiError {
     private String message;

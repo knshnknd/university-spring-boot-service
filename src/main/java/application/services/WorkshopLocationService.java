@@ -1,10 +1,8 @@
 package application.services;
 
-import application.jpa.entities.Subject;
-import application.jpa.entities.Teacher;
 import application.jpa.entities.WorkshopLocation;
 import application.jpa.repositories.WorkshopLocationRepository;
-import application.util.exceptions.EntityNotFoundException;
+import application.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

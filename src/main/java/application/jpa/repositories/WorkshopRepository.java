@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface WorkshopRepository extends JpaRepository<Workshop, Integer> {
+public interface WorkshopRepository extends JpaRepository<Workshop, Long> {
 }

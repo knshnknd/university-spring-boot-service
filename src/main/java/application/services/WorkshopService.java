@@ -2,17 +2,14 @@ package application.services;
 
 import application.jpa.entities.Student;
 import application.jpa.entities.Workshop;
-import application.jpa.repositories.StudentRepository;
 import application.jpa.repositories.WorkshopRepository;
-import application.util.exceptions.EntityNotFoundException;
+import application.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class WorkshopService {
@@ -40,7 +37,7 @@ public class WorkshopService {
         return workshopRepository.findAll();
     }
 
-    public Workshop findOne(Integer id) {
+    public Workshop findOne(Long id) {
         Optional<Workshop> workshopOptional = workshopRepository.findById(id);
         return workshopOptional.orElseThrow(() -> new EntityNotFoundException(WORKSHOP_NOT_FOUND_ERROR_MESSAGE));
     }
@@ -52,14 +49,14 @@ public class WorkshopService {
     }
 
     @Transactional
-    public void update(int id, Workshop workshop) {
+    public void update(Long id, Workshop workshop) {
         workshop.setWorkshopId(findOne(id).getWorkshopId());
         enrichWorkshop(workshop);
         workshopRepository.save(workshop);
     }
 
     @Transactional
-    public void delete(int id) {
+    public void delete(Long id) {
         workshopRepository.deleteById(id);
     }
 

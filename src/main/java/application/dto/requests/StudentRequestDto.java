@@ -1,8 +1,8 @@
-package application.dto;
+package application.dto.requests;
 
 import application.jpa.entities.StudentGroup;
 
-public class StudentDTO {
+public class StudentRequestDto {
 
     private String studentFullName;
     private StudentGroup studentGroup;

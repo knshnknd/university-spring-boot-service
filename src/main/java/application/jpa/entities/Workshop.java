@@ -17,7 +17,7 @@ public class Workshop {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer workshopId;
+    private Long workshopId;
 
     @NotNull
     @ManyToOne
@@ -52,7 +52,7 @@ public class Workshop {
         this.students = students;
     }
 
-    public Workshop(Integer workshopId, Subject subject, WorkshopLocation workshopLocation, Teacher teacher,
+    public Workshop(Long workshopId, Subject subject, WorkshopLocation workshopLocation, Teacher teacher,
                     Date workshopDate, List<Student> students) {
         this.workshopId = workshopId;
         this.subject = subject;
@@ -62,11 +62,11 @@ public class Workshop {
         this.students = students;
     }
 
-    public Integer getWorkshopId() {
+    public Long getWorkshopId() {
         return workshopId;
     }
 
-    public void setWorkshopId(Integer workshopId) {
+    public void setWorkshopId(Long workshopId) {
         this.workshopId = workshopId;
     }
 

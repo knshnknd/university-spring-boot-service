@@ -1,4 +1,4 @@
-package application.dto;
+package application.dto.responses;
 
 import application.jpa.entities.Subject;
 import application.jpa.entities.WorkshopLocation;

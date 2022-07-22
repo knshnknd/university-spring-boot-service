@@ -1,13 +1,13 @@
-package application.dto;
+package application.dto.responses;
 
 import application.jpa.entities.Teacher;
 
 import java.util.List;
 
-public class TeacherResponse {
+public class TeacherResponseDto {
     private List<Teacher> teachers;
 
-    public TeacherResponse(List<Teacher> teachers) {
+    public TeacherResponseDto(List<Teacher> teachers) {
         this.teachers = teachers;
     }
 

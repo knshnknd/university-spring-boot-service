@@ -1,4 +1,4 @@
-package application.util.exceptions;
+package application.exceptions;
 
 public class EntityNotCreatedException extends RuntimeException  {
 

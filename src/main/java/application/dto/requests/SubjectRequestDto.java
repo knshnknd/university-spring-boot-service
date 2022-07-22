@@ -1,6 +1,6 @@
-package application.dto;
+package application.dto.requests;
 
-public class SubjectDTO {
+public class SubjectRequestDto {
 
     private String subjectName;
 

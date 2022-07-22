@@ -3,17 +3,15 @@ package application.services;
 import application.jpa.entities.Student;
 import application.jpa.entities.Workshop;
 import application.jpa.repositories.StudentRepository;
-import application.util.exceptions.EntityNotFoundException;
+import application.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentService {

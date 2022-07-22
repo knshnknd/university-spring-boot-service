@@ -1,14 +1,11 @@
 package application.controllers;
 
-import application.dto.StudentDTO;
-import application.dto.StudentResponse;
+import application.dto.requests.StudentRequestDto;
+import application.dto.responses.StudentResponseDto;
 import application.jpa.entities.Student;
 import application.jpa.entities.Workshop;
 import application.services.StudentService;
-import application.util.ApiError;
-import application.util.exceptions.EntityNotCreatedException;
-import application.util.exceptions.EntityNotFoundException;
-import application.util.validators.StudentValidator;
+import application.validators.StudentValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,7 +19,7 @@ import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
-import static application.util.ErrorsUtil.returnErrorsToClient;
+import static application.exceptions.ErrorsUtil.returnErrorsToClient;
 
 @RestController
 @RequestMapping("/students")
@@ -40,9 +37,9 @@ public class StudentController {
     }
 
     @GetMapping
-    public StudentResponse getAll() {
+    public StudentResponseDto getAll() {
         // Оборачиваем список из всех объектов в один внешний объект для пересылки
-        return new StudentResponse(studentService.findAll());
+        return new StudentResponseDto(studentService.findAll());
     }
 
     @GetMapping("/{id}")
@@ -51,8 +48,8 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> create(@RequestBody @Valid StudentDTO studentDTO, BindingResult bindingResult) {
-        Student studentToCreate = convertToStudent(studentDTO);
+    public ResponseEntity<HttpStatus> create(@RequestBody @Valid StudentRequestDto studentRequestDTO, BindingResult bindingResult) {
+        Student studentToCreate = convertToStudent(studentRequestDTO);
 
         studentValidator.validate(studentToCreate, bindingResult);
 
@@ -65,9 +62,9 @@ public class StudentController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<HttpStatus> update(@RequestBody @Valid StudentDTO studentDTO,
+    public ResponseEntity<HttpStatus> update(@RequestBody @Valid StudentRequestDto studentRequestDTO,
                                              BindingResult bindingResult, @PathVariable("id") int id) {
-        Student studentToUpdate = convertToStudent(studentDTO);
+        Student studentToUpdate = convertToStudent(studentRequestDTO);
 
         studentValidator.validate(studentToUpdate, bindingResult);
 
@@ -92,7 +89,7 @@ public class StudentController {
 
         return studentService.getWorkshopsByDate(id, date);
    }
-    private Student convertToStudent(StudentDTO studentDTO) {
-        return modelMapper.map(studentDTO, Student.class);
+    private Student convertToStudent(StudentRequestDto studentRequestDTO) {
+        return modelMapper.map(studentRequestDTO, Student.class);
     }
 }

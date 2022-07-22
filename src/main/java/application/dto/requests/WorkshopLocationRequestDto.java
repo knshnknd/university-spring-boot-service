@@ -1,6 +1,6 @@
-package application.dto;
+package application.dto.requests;
 
-public class WorkshopLocationDTO {
+public class WorkshopLocationRequestDto {
 
     private String workshopLocationFullAddress;
 

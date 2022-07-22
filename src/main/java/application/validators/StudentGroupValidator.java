@@ -1,4 +1,4 @@
-package application.util.validators;
+package application.validators;
 
 import application.jpa.entities.StudentGroup;
 import application.services.StudentGroupService;

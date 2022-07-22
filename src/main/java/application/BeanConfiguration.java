@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
 
 @Component
-public class Configuration {
+public class BeanConfiguration {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper mapper = new ModelMapper();

@@ -1,12 +1,10 @@
 package application.controllers;
 
-import application.dto.*;
+import application.dto.requests.SubjectRequestDto;
+import application.dto.responses.SubjectResponseDto;
 import application.jpa.entities.Subject;
 import application.services.SubjectService;
-import application.util.ApiError;
-import application.util.exceptions.EntityNotCreatedException;
-import application.util.exceptions.EntityNotFoundException;
-import application.util.validators.SubjectValidator;
+import application.validators.SubjectValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static application.util.ErrorsUtil.returnErrorsToClient;
+import static application.exceptions.ErrorsUtil.returnErrorsToClient;
 
 @RestController
 @RequestMapping("/subjects")
@@ -35,9 +33,9 @@ public class SubjectController {
     }
 
     @GetMapping
-    public SubjectResponse getAll() {
+    public SubjectResponseDto getAll() {
         // Оборачиваем список из всех объектов в один внешний объект для пересылки
-        return new SubjectResponse(subjectService.findAll());
+        return new SubjectResponseDto(subjectService.findAll());
     }
 
     @GetMapping("/{id}")
@@ -46,9 +44,9 @@ public class SubjectController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> create(@RequestBody @Valid SubjectDTO subjectDTO,
+    public ResponseEntity<HttpStatus> create(@RequestBody @Valid SubjectRequestDto subjectRequestDTO,
                                              BindingResult bindingResult) {
-        Subject subjectToCreate = convertToSubject(subjectDTO);
+        Subject subjectToCreate = convertToSubject(subjectRequestDTO);
 
         subjectValidator.validate(subjectToCreate, bindingResult);
 
@@ -61,9 +59,9 @@ public class SubjectController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<HttpStatus> update(@RequestBody @Valid SubjectDTO subjectDTO,
+    public ResponseEntity<HttpStatus> update(@RequestBody @Valid SubjectRequestDto subjectRequestDTO,
                                                        BindingResult bindingResult, @PathVariable("id") int id) {
-        Subject subjectToUpdate = convertToSubject(subjectDTO);
+        Subject subjectToUpdate = convertToSubject(subjectRequestDTO);
 
         subjectValidator.validate(subjectToUpdate, bindingResult);
 
@@ -81,7 +79,7 @@ public class SubjectController {
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
-    private Subject convertToSubject(SubjectDTO subjectDTO) {
-        return modelMapper.map(subjectDTO, Subject.class);
+    private Subject convertToSubject(SubjectRequestDto subjectRequestDTO) {
+        return modelMapper.map(subjectRequestDTO, Subject.class);
     }
 }
