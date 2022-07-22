@@ -7,10 +7,12 @@ import application.jpa.entities.WorkshopLocation;
 import application.jpa.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class DataPreloadService {
     private StudentRepository studentRepository;
     private StudentGroupRepository studentGroupRepository;
@@ -73,9 +75,9 @@ public class DataPreloadService {
 
     private void preloadStudentGroups() {
         List<StudentGroup> studentGroups = List.of(
-                new StudentGroup("ОБ-ИОБ-2022"),
-                new StudentGroup("ОБ-ИИС-2022"),
-                new StudentGroup("ОБ-ИИН-2022")
+                new StudentGroup("B-History-2022"),
+                new StudentGroup("B-Mathematics&IT-2022"),
+                new StudentGroup("M-LanguageScience-2022")
         );
 
         studentGroupRepository.saveAll(studentGroups);

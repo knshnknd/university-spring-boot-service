@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class WorkshopService {
     private static final String WORKSHOP_NOT_FOUND_ERROR_MESSAGE = "Workshop with this ID was not found.";
 
@@ -42,20 +43,17 @@ public class WorkshopService {
         return workshopOptional.orElseThrow(() -> new EntityNotFoundException(WORKSHOP_NOT_FOUND_ERROR_MESSAGE));
     }
 
-    @Transactional
     public void save(Workshop workshop) {
         enrichWorkshop(workshop);
         workshopRepository.save(workshop);
     }
 
-    @Transactional
     public void update(Long id, Workshop workshop) {
         workshop.setWorkshopId(findOne(id).getWorkshopId());
         enrichWorkshop(workshop);
         workshopRepository.save(workshop);
     }
 
-    @Transactional
     public void delete(Long id) {
         workshopRepository.deleteById(id);
     }
