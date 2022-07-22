@@ -16,20 +16,9 @@ public class UniversitySpringBootServiceApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(UniversitySpringBootServiceApplication.class, args);
-		DataPreloadService dataPreloadService = context.getBean("dataPreloadService", DataPreloadService.class);
+		// DataPreloadService dataPreloadService = context.getBean("dataPreloadService", DataPreloadService.class);
 
-		dataPreloadService.preloadData();
-	}
-
-	@Bean
-	public ModelMapper modelMapper() {
-		ModelMapper mapper = new ModelMapper();
-		mapper.getConfiguration()
-				.setMatchingStrategy(MatchingStrategies.STRICT)
-				.setFieldMatchingEnabled(true)
-				.setSkipNullEnabled(true)
-				.setFieldAccessLevel(PRIVATE);
-		return mapper;
+		// dataPreloadService.preloadData();
 	}
 
 }

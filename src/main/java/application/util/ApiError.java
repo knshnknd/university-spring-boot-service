@@ -1,9 +1,9 @@
-package application.util.error_responses;
+package application.util;
 
-public class ErrorResponse {
+public class ApiError {
     private String message;
 
-    public ErrorResponse(String message) {
+    public ApiError(String message) {
         this.message = message;
     }
 

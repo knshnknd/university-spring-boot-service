@@ -5,7 +5,7 @@ import application.dto.StudentResponse;
 import application.jpa.entities.Student;
 import application.jpa.entities.Workshop;
 import application.services.StudentService;
-import application.util.error_responses.ErrorResponse;
+import application.util.ApiError;
 import application.util.exceptions.EntityNotCreatedException;
 import application.util.exceptions.EntityNotFoundException;
 import application.util.validators.StudentValidator;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,7 +42,7 @@ public class StudentController {
     @GetMapping
     public StudentResponse getAll() {
         // Оборачиваем список из всех объектов в один внешний объект для пересылки
-        return new StudentResponse(new ArrayList<>(studentService.findAll()));
+        return new StudentResponse(studentService.findAll());
     }
 
     @GetMapping("/{id}")
@@ -93,18 +92,6 @@ public class StudentController {
 
         return studentService.getWorkshopsByDate(id, date);
    }
-
-    @ExceptionHandler
-    protected ResponseEntity<ErrorResponse> handleException(EntityNotCreatedException exception) {
-        ErrorResponse response = new ErrorResponse(exception.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler
-    protected ResponseEntity<ErrorResponse> handleException(EntityNotFoundException exception) {
-        ErrorResponse response = new ErrorResponse(exception.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
     private Student convertToStudent(StudentDTO studentDTO) {
         return modelMapper.map(studentDTO, Student.class);
     }

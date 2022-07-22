@@ -4,7 +4,7 @@ import application.dto.WorkshopLocationDTO;
 import application.dto.WorkshopLocationResponse;
 import application.jpa.entities.WorkshopLocation;
 import application.services.WorkshopLocationService;
-import application.util.error_responses.ErrorResponse;
+import application.util.ApiError;
 import application.util.exceptions.EntityNotCreatedException;
 import application.util.exceptions.EntityNotFoundException;
 import application.util.validators.WorkshopLocationValidator;
@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 
 import static application.util.ErrorsUtil.returnErrorsToClient;
 
@@ -39,7 +38,7 @@ public class WorkshopLocationController {
     @GetMapping
     public WorkshopLocationResponse getAll() {
         // Оборачиваем список из всех объектов в один внешний объект для пересылки
-        return new WorkshopLocationResponse(new ArrayList<>(workshopLocationService.findAll()));
+        return new WorkshopLocationResponse(workshopLocationService.findAll());
     }
 
     @GetMapping("/{id}")
@@ -81,19 +80,6 @@ public class WorkshopLocationController {
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
         workshopLocationService.delete(id);
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
-    }
-
-
-    @ExceptionHandler
-    protected ResponseEntity<ErrorResponse> handleException(EntityNotCreatedException exception) {
-        ErrorResponse response = new ErrorResponse(exception.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler
-    protected ResponseEntity<ErrorResponse> handleException(EntityNotFoundException exception) {
-        ErrorResponse response = new ErrorResponse(exception.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     private WorkshopLocation convertToWorkshopLocation(WorkshopLocationDTO workshopLocationDTO) {

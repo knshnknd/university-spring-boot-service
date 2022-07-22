@@ -3,7 +3,7 @@ package application.controllers;
 import application.dto.*;
 import application.jpa.entities.Subject;
 import application.services.SubjectService;
-import application.util.error_responses.ErrorResponse;
+import application.util.ApiError;
 import application.util.exceptions.EntityNotCreatedException;
 import application.util.exceptions.EntityNotFoundException;
 import application.util.validators.SubjectValidator;
@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 
 import static application.util.ErrorsUtil.returnErrorsToClient;
 
@@ -38,7 +37,7 @@ public class SubjectController {
     @GetMapping
     public SubjectResponse getAll() {
         // Оборачиваем список из всех объектов в один внешний объект для пересылки
-        return new SubjectResponse(new ArrayList<>(subjectService.findAll()));
+        return new SubjectResponse(subjectService.findAll());
     }
 
     @GetMapping("/{id}")
@@ -80,19 +79,6 @@ public class SubjectController {
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
         subjectService.delete(id);
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
-    }
-
-
-    @ExceptionHandler
-    protected ResponseEntity<ErrorResponse> handleException(EntityNotCreatedException exception) {
-        ErrorResponse response = new ErrorResponse(exception.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler
-    protected ResponseEntity<ErrorResponse> handleException(EntityNotFoundException exception) {
-        ErrorResponse response = new ErrorResponse(exception.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     private Subject convertToSubject(SubjectDTO subjectDTO) {

@@ -4,7 +4,7 @@ import application.dto.WorkshopDTO;
 import application.dto.WorkshopResponse;
 import application.jpa.entities.Workshop;
 import application.services.WorkshopService;
-import application.util.error_responses.ErrorResponse;
+import application.util.ApiError;
 import application.util.exceptions.EntityNotCreatedException;
 import application.util.exceptions.EntityNotFoundException;
 import application.util.validators.WorkshopValidator;
@@ -85,17 +85,6 @@ public class WorkshopController {
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
-    @ExceptionHandler
-    protected ResponseEntity<ErrorResponse> handleException(EntityNotCreatedException exception) {
-        ErrorResponse response = new ErrorResponse(exception.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler
-    protected ResponseEntity<ErrorResponse> handleException(EntityNotFoundException exception) {
-        ErrorResponse response = new ErrorResponse(exception.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
     private Workshop convertToWorkshop(WorkshopDTO workshopDTO) {
         return modelMapper.map(workshopDTO, Workshop.class);
     }

@@ -4,7 +4,7 @@ import application.dto.TeacherDTO;
 import application.dto.TeacherResponse;
 import application.jpa.entities.Teacher;
 import application.services.TeacherService;
-import application.util.error_responses.ErrorResponse;
+import application.util.ApiError;
 import application.util.exceptions.EntityNotCreatedException;
 import application.util.exceptions.EntityNotFoundException;
 import application.util.validators.TeacherValidator;
@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 
 import static application.util.ErrorsUtil.returnErrorsToClient;
 
@@ -37,7 +36,7 @@ public class TeacherController {
     @GetMapping
     public TeacherResponse getAll() {
         // Оборачиваем список из всех объектов в один внешний объект для пересылки
-        return new TeacherResponse(new ArrayList<>(teacherService.findAll()));
+        return new TeacherResponse(teacherService.findAll());
     }
 
     @GetMapping("/{id}")
@@ -80,17 +79,6 @@ public class TeacherController {
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
-    @ExceptionHandler
-    protected ResponseEntity<ErrorResponse> handleException(EntityNotCreatedException exception) {
-        ErrorResponse response = new ErrorResponse(exception.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler
-    protected ResponseEntity<ErrorResponse> handleException(EntityNotFoundException exception) {
-        ErrorResponse response = new ErrorResponse(exception.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
     private Teacher convertToTeacher(TeacherDTO teacherDTO) {
         return modelMapper.map(teacherDTO, Teacher.class);
     }
