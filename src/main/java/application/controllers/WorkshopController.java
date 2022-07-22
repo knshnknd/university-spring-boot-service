@@ -82,14 +82,6 @@ public class WorkshopController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    // ????
-    @PutMapping("{workshopId}/students/{studentId}")
-    public ResponseEntity<HttpStatus> enrollStudentToWorkshop(@PathVariable int workshopId,
-                                                              @PathVariable int studentId) {
-        workshopService.enroll(workshopId, studentId);
-        return ResponseEntity.ok(HttpStatus.OK);
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
         workshopService.delete(id);

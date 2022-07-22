@@ -11,6 +11,7 @@ import application.util.exceptions.EntityNotFoundException;
 import application.util.validators.StudentValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static application.util.ErrorsUtil.returnErrorsToClient;
@@ -84,11 +86,14 @@ public class StudentController {
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
+   @PostMapping("/{id}/schedule")
+   public List<Workshop> getSchedule(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
+                                     @PathVariable("id") Integer id) {
 
-    @GetMapping("/{id}/schedule")
-    public List<Workshop> getSchedule(@PathVariable("id") Integer id) {
-        return studentService.getWorkshops(id);
-    }
+        System.out.println(date);
+        System.out.println(id + " ID");
+        return studentService.getWorkshopsByDate(id, date);
+   }
 
     @ExceptionHandler
     protected ResponseEntity<ErrorResponse> handleException(EntityNotCreatedException exception) {
