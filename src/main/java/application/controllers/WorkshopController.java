@@ -82,6 +82,7 @@ public class WorkshopController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
+    // ????
     @PutMapping("{workshopId}/students/{studentId}")
     public ResponseEntity<HttpStatus> enrollStudentToWorkshop(@PathVariable int workshopId,
                                                               @PathVariable int studentId) {

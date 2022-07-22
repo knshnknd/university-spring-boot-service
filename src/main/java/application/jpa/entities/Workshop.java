@@ -1,11 +1,13 @@
 package application.jpa.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,10 +36,20 @@ public class Workshop {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date workshopDate;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "workshops")
-    private List<Student> students;
+    private List<Student> students = new ArrayList<>();
 
     public Workshop() {
+    }
+
+    public Workshop(Subject subject, WorkshopLocation workshopLocation, Teacher teacher,
+                    Date workshopDate, List<Student> students) {
+        this.subject = subject;
+        this.workshopLocation = workshopLocation;
+        this.teacher = teacher;
+        this.workshopDate = workshopDate;
+        this.students = students;
     }
 
     public Workshop(Integer workshopId, Subject subject, WorkshopLocation workshopLocation, Teacher teacher,

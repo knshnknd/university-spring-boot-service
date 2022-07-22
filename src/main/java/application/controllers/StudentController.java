@@ -3,6 +3,7 @@ package application.controllers;
 import application.dto.StudentDTO;
 import application.dto.StudentResponse;
 import application.jpa.entities.Student;
+import application.jpa.entities.Workshop;
 import application.services.StudentService;
 import application.util.error_responses.ErrorResponse;
 import application.util.exceptions.EntityNotCreatedException;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static application.util.ErrorsUtil.returnErrorsToClient;
 
@@ -80,6 +82,12 @@ public class StudentController {
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
         studentService.delete(id);
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+    }
+
+
+    @GetMapping("/{id}/schedule")
+    public List<Workshop> getSchedule(@PathVariable("id") Integer id) {
+        return studentService.getWorkshops(id);
     }
 
     @ExceptionHandler

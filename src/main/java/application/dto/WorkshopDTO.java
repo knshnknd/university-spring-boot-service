@@ -1,23 +1,22 @@
 package application.dto;
 
+import application.jpa.entities.Student;
 import application.jpa.entities.Subject;
 import application.jpa.entities.Teacher;
 import application.jpa.entities.WorkshopLocation;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 import java.util.Date;
+import java.util.List;
 
 public class WorkshopDTO {
 
     private Subject subject;
     private WorkshopLocation workshopLocation;
     private Teacher teacher;
-
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date workshopDate;
+
+    private List<Student> students;
 
     public Subject getSubject() {
         return subject;
@@ -49,5 +48,13 @@ public class WorkshopDTO {
 
     public void setWorkshopDate(Date workshopDate) {
         this.workshopDate = workshopDate;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

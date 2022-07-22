@@ -2,6 +2,8 @@ package application.services;
 
 import application.jpa.entities.StudentGroup;
 import application.jpa.entities.Subject;
+import application.jpa.entities.Teacher;
+import application.jpa.entities.WorkshopLocation;
 import application.jpa.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,31 @@ public class DataPreloadService {
 
     public void preloadData() {
         preloadSubjects();
+        preloadTeachers();
+        preloadWorkshopLocations();
+        preloadStudentGroups();
+    }
+
+    private void preloadTeachers() {
+        List<Teacher> teacherList = List.of(
+                new Teacher("John Smith", "PhD in history"),
+                new Teacher("Bob Smith", "MBA"),
+                new Teacher("Jake Johnson", "PhD in medicine"),
+                new Teacher("William I the Conqueror", "MBA")
+        );
+
+        teacherRepository.saveAll(teacherList);
+    }
+
+    private void preloadWorkshopLocations() {
+        List<WorkshopLocation> workshopLocationList = List.of(
+                new WorkshopLocation("Main building, auditorium 205"),
+                new WorkshopLocation("Main building, auditorium 122"),
+                new WorkshopLocation("Main building, gym"),
+                new WorkshopLocation("Library, auditorium 12")
+        );
+
+        workshopLocationRepository.saveAll(workshopLocationList);
     }
 
     private void preloadSubjects() {

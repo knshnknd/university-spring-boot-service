@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,14 +23,14 @@ public class Student {
     @JoinColumn(referencedColumnName = "studentGroupId")
     private StudentGroup studentGroup;
 
-    // Set?
+
     @ManyToMany
     @JoinTable(
             name = "student_workshops",
             joinColumns = @JoinColumn(name = "studentId"),
             inverseJoinColumns = @JoinColumn(name = "workshopId")
     )
-    private List<Workshop> workshops;
+    private List<Workshop> workshops = new ArrayList<>();
 
     public Student() {
     }

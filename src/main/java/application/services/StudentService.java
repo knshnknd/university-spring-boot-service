@@ -1,6 +1,8 @@
 package application.services;
 
 import application.jpa.entities.Student;
+import application.jpa.entities.Teacher;
+import application.jpa.entities.Workshop;
 import application.jpa.repositories.StudentRepository;
 import application.util.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,10 @@ public class StudentService {
         return studentOptional.orElseThrow(() -> new EntityNotFoundException(STUDENT_NOT_FOUND_ERROR_MESSAGE));
     }
 
+    public Optional<Student> findById(Integer id) {
+        return studentRepository.findById(id);
+    }
+
     @Transactional
     public void save(Student student) {
         enrichStudent(student);
@@ -48,6 +54,11 @@ public class StudentService {
     @Transactional
     public void delete(int id) {
         studentRepository.deleteById(id);
+    }
+
+    @Transactional
+    public List<Workshop> getWorkshops(int id){
+        return findOne(id).getWorkshops();
     }
 
     private void enrichStudent(Student student) {

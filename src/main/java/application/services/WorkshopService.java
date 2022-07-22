@@ -12,24 +12,25 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class WorkshopService {
     private static final String WORKSHOP_NOT_FOUND_ERROR_MESSAGE = "Workshop with this ID was not found.";
 
     private final WorkshopRepository workshopRepository;
-    private final StudentRepository studentRepository;
 
+    private final StudentService studentService;
     private final SubjectService subjectService;
     private final TeacherService teacherService;
     private final WorkshopLocationService workshopLocationService;
 
     @Autowired
-    public WorkshopService(WorkshopRepository workshopRepository, StudentRepository studentRepository,
+    public WorkshopService(WorkshopRepository workshopRepository, StudentService studentService,
                            SubjectService subjectService, TeacherService teacherService,
                            WorkshopLocationService workshopLocationService) {
         this.workshopRepository = workshopRepository;
-        this.studentRepository = studentRepository;
+        this.studentService = studentService;
         this.subjectService = subjectService;
         this.teacherService = teacherService;
         this.workshopLocationService = workshopLocationService;
@@ -74,6 +75,15 @@ public class WorkshopService {
         workshop.setTeacher(teacherService.findById(workshop.getTeacher().getTeacherId()).get());
         workshop.setWorkshopLocation(workshopLocationService.findById(workshop.getWorkshopLocation()
                                                                         .getWorkshopLocationId()).get());
+
+        // Связываем существующих студентов с занятием
+        workshop.getStudents().addAll(workshop.getStudents()
+                .stream()
+                .map(student -> {
+                    Student newStudent = studentService.findById(student.getStudentId()).get();
+                    newStudent.getWorkshops().add(workshop);
+                    return newStudent;
+                }).toList());
     }
 
 }
