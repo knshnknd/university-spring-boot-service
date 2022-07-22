@@ -40,6 +40,17 @@ public class Student {
         this.studentGroup = studentGroup;
     }
 
+    public Student(Integer studentId, String studentFullName) {
+        this.studentId = studentId;
+        this.studentFullName = studentFullName;
+    }
+
+    public Student(Integer studentId, String studentFullName, StudentGroup studentGroup) {
+        this.studentId = studentId;
+        this.studentFullName = studentFullName;
+        this.studentGroup = studentGroup;
+    }
+
     public Student(Integer studentId, String studentFullName, StudentGroup studentGroup, List<Workshop> workshops) {
         this.studentId = studentId;
         this.studentFullName = studentFullName;

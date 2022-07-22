@@ -66,7 +66,7 @@ class SubjectControllerTest {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(subject);
 
-        mockMvc.perform(post("/subjects/").contentType(APPLICATION_JSON).content(requestJson))
+        mockMvc.perform(post("/subjects").contentType(APPLICATION_JSON).content(requestJson))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON));
