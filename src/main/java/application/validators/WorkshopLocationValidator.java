@@ -1,8 +1,6 @@
 package application.validators;
 
-import application.jpa.entities.Subject;
 import application.jpa.entities.WorkshopLocation;
-import application.services.SubjectService;
 import application.services.WorkshopLocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,7 +31,7 @@ public class WorkshopLocationValidator implements Validator {
                     "The full address of the workshop location must not be empty.");;
         }
 
-        if(workshopLocationService.findByName(workshopLocation.getWorkshopLocationFullAddress()).isPresent()) {
+        if(workshopLocationService.findByWorkshopLocationFullAddress(workshopLocation.getWorkshopLocationFullAddress()).isPresent()) {
             errors.rejectValue("workshopLocationFullAddress", "",
                     "A workshop location with that full address already exists.");
         }

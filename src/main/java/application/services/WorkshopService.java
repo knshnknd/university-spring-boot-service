@@ -61,16 +61,16 @@ public class WorkshopService {
     private void enrichWorkshop(Workshop workshop) {
         // Ищем нужные объекты из БД по ID, которое пришло из JSON,
         // и вставляем объект из Hibernate persistence context
-        workshop.setSubject(subjectService.findById(workshop.getSubject().getSubjectId()).get());
-        workshop.setTeacher(teacherService.findById(workshop.getTeacher().getTeacherId()).get());
-        workshop.setWorkshopLocation(workshopLocationService.findById(workshop.getWorkshopLocation()
+        workshop.setSubject(subjectService.findOptionalById(workshop.getSubject().getSubjectId()).get());
+        workshop.setTeacher(teacherService.findOptionalById(workshop.getTeacher().getTeacherId()).get());
+        workshop.setWorkshopLocation(workshopLocationService.findOptionalById(workshop.getWorkshopLocation()
                                                                         .getWorkshopLocationId()).get());
 
         // Связываем существующих студентов с занятием
         workshop.getStudents().addAll(workshop.getStudents()
                 .stream()
                 .map(student -> {
-                    Student newStudent = studentService.findById(student.getStudentId()).get();
+                    Student newStudent = studentService.findOptionalById(student.getStudentId()).get();
                     newStudent.getWorkshops().add(workshop);
                     return newStudent;
                 }).toList());

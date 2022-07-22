@@ -30,7 +30,7 @@ public class StudentGroupValidator implements Validator {
                     "The name of the student group must not be empty.");;
         }
 
-        if(studentGroupService.findByName(studentGroup.getStudentGroupName()).isPresent()) {
+        if(studentGroupService.findByStudentGroupName(studentGroup.getStudentGroupName()).isPresent()) {
             errors.rejectValue("studentGroupName", "",
                     "A student group with that name already exists.");
         }

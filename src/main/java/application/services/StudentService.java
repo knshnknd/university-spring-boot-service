@@ -36,7 +36,7 @@ public class StudentService {
         return studentOptional.orElseThrow(() -> new EntityNotFoundException(STUDENT_NOT_FOUND_ERROR_MESSAGE));
     }
 
-    public Optional<Student> findById(Integer id) {
+    public Optional<Student> findOptionalById(Integer id) {
         return studentRepository.findById(id);
     }
 
@@ -63,6 +63,6 @@ public class StudentService {
     }
 
     private void enrichStudent(Student student) {
-        student.setStudentGroup(studentGroupService.findById(student.getStudentGroup().getStudentGroupId()).get());
+        student.setStudentGroup(studentGroupService.findOptionalById(student.getStudentGroup().getStudentGroupId()).get());
     }
 }

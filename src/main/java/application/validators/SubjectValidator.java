@@ -1,8 +1,6 @@
 package application.validators;
 
-import application.jpa.entities.StudentGroup;
 import application.jpa.entities.Subject;
-import application.services.StudentGroupService;
 import application.services.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,7 +30,7 @@ public class SubjectValidator implements Validator {
                     "The name of the subject must not be empty.");;
         }
 
-        if(subjectService.findByName(subject.getSubjectName()).isPresent()) {
+        if(subjectService.findBySubjectName(subject.getSubjectName()).isPresent()) {
             errors.rejectValue("subjectName", "",
                     "A subject with that name already exists.");
         }

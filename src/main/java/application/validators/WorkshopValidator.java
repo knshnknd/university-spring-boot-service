@@ -1,6 +1,5 @@
 package application.validators;
 
-import application.jpa.entities.Student;
 import application.jpa.entities.Workshop;
 import application.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +33,15 @@ public class WorkshopValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Workshop workshop = (Workshop) target;
 
-        if (subjectService.findById(workshop.getSubject().getSubjectId()).isEmpty()) {
+        if (subjectService.findOptionalById(workshop.getSubject().getSubjectId()).isEmpty()) {
             errors.rejectValue("subject", "", "There is no such subject.");
         }
 
-        if (teacherService.findById(workshop.getTeacher().getTeacherId()).isEmpty()) {
+        if (teacherService.findOptionalById(workshop.getTeacher().getTeacherId()).isEmpty()) {
             errors.rejectValue("teacher", "", "There is no such teacher.");
         }
 
-        if (workshopLocationService.findById(workshop.getWorkshopLocation().getWorkshopLocationId()).isEmpty()) {
+        if (workshopLocationService.findOptionalById(workshop.getWorkshopLocation().getWorkshopLocationId()).isEmpty()) {
             errors.rejectValue("workshopLocation", "", "There is no such workshop location.");
         }
     }

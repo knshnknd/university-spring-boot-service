@@ -33,7 +33,7 @@ public class StudentValidator implements Validator {
 
         // Обработку на одинаковые ФИО не делаем, потому что могут существовать студенты с одинаковыми ФИО
 
-        if (studentGroupService.findById(student.getStudentGroup().getStudentGroupId()).isEmpty()) {
+        if (studentGroupService.findOptionalById(student.getStudentGroup().getStudentGroupId()).isEmpty()) {
             errors.rejectValue("studentGroup", "There is no such student group.");
         }
     }

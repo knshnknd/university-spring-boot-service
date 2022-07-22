@@ -31,11 +31,11 @@ public class SubjectService {
         return subjectOptional.orElseThrow(() -> new EntityNotFoundException(SUBJECT_NOT_FOUND_ERROR_MESSAGE));
     }
 
-    public Optional<Subject> findByName(String name) {
+    public Optional<Subject> findBySubjectName(String name) {
         return subjectRepository.findSubjectBySubjectName(name);
     }
 
-    public Optional<Subject> findById(Integer id) {
+    public Optional<Subject> findOptionalById(Integer id) {
         return subjectRepository.findById(id);
     }
 

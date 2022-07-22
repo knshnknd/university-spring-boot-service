@@ -31,11 +31,11 @@ public class WorkshopLocationService {
         return workshopLocationOptional.orElseThrow(() -> new EntityNotFoundException(WORKSHOP_LOCATION_NOT_FOUND_ERROR_MESSAGE));
     }
 
-    public Optional<WorkshopLocation> findByName(String name) {
+    public Optional<WorkshopLocation> findByWorkshopLocationFullAddress(String name) {
         return workshopLocationRepository.findWorkshopLocationByWorkshopLocationFullAddress(name);
     }
 
-    public Optional<WorkshopLocation> findById(Integer id) {
+    public Optional<WorkshopLocation> findOptionalById(Integer id) {
         return workshopLocationRepository.findById(id);
     }
 

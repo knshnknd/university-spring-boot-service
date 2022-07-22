@@ -31,11 +31,11 @@ public class StudentGroupService {
         return studentGroupOptional.orElseThrow(() -> new EntityNotFoundException(STUDENT_GROUP_NOT_FOUND_ERROR_MESSAGE));
     }
 
-    public Optional<StudentGroup> findByName(String name) {
+    public Optional<StudentGroup> findByStudentGroupName(String name) {
         return studentGroupRepository.findStudentGroupByStudentGroupName(name);
     }
 
-    public Optional<StudentGroup> findById(Integer id) {
+    public Optional<StudentGroup> findOptionalById(Integer id) {
         return studentGroupRepository.findById(id);
     }
 

@@ -31,7 +31,7 @@ public class TeacherService {
         return teacherOptional.orElseThrow(() -> new EntityNotFoundException(TEACHER_NOT_FOUND_ERROR_MESSAGE));
     }
 
-    public Optional<Teacher> findById(Integer id) {
+    public Optional<Teacher> findOptionalById(Integer id) {
         return teacherRepository.findById(id);
     }
 
