@@ -34,7 +34,6 @@ public class SubjectController {
 
     @GetMapping
     public SubjectResponseDto getAll() {
-        // Оборачиваем список из всех объектов в один внешний объект для пересылки
         return new SubjectResponseDto(subjectService.findAll());
     }
 

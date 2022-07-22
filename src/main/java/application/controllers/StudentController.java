@@ -38,7 +38,6 @@ public class StudentController {
 
     @GetMapping
     public StudentResponseDto getAll() {
-        // Оборачиваем список из всех объектов в один внешний объект для пересылки
         return new StudentResponseDto(studentService.findAll());
     }
 
