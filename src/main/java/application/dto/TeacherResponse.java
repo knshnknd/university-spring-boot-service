@@ -1,6 +1,5 @@
 package application.dto;
 
-import application.jpa.entities.Student;
 import application.jpa.entities.Teacher;
 
 import java.util.List;

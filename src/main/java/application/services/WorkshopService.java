@@ -59,11 +59,6 @@ public class WorkshopService {
     }
 
     @Transactional
-    public void enroll(int workshopId, int studentId) {
-
-    }
-
-    @Transactional
     public void delete(int id) {
         workshopRepository.deleteById(id);
     }

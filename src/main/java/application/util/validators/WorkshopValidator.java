@@ -2,10 +2,7 @@ package application.util.validators;
 
 import application.jpa.entities.Student;
 import application.jpa.entities.Workshop;
-import application.services.StudentGroupService;
-import application.services.SubjectService;
-import application.services.TeacherService;
-import application.services.WorkshopLocationService;
+import application.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -17,13 +14,15 @@ public class WorkshopValidator implements Validator {
     private final SubjectService subjectService;
     private final TeacherService teacherService;
     private final WorkshopLocationService workshopLocationService;
+    private final StudentService studentService;
 
     @Autowired
     public WorkshopValidator(SubjectService subjectService, TeacherService teacherService,
-                             WorkshopLocationService workshopLocationService) {
+                             WorkshopLocationService workshopLocationService, StudentService studentService) {
         this.subjectService = subjectService;
         this.teacherService = teacherService;
         this.workshopLocationService = workshopLocationService;
+        this.studentService = studentService;
     }
 
     @Override
@@ -35,21 +34,16 @@ public class WorkshopValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Workshop workshop = (Workshop) target;
 
-        // equals??
-        if (workshop.getWorkshopDate() == null || workshop.getWorkshopDate().equals("")) {
-            errors.rejectValue("date", "", "The date of the workshop must not be empty.");;
-        }
-
         if (subjectService.findById(workshop.getSubject().getSubjectId()).isEmpty()) {
-            errors.rejectValue("subject", "There is no such subject.");
+            errors.rejectValue("subject", "", "There is no such subject.");
         }
 
         if (teacherService.findById(workshop.getTeacher().getTeacherId()).isEmpty()) {
-            errors.rejectValue("teacher", "There is no such teacher.");
+            errors.rejectValue("teacher", "", "There is no such teacher.");
         }
 
         if (workshopLocationService.findById(workshop.getWorkshopLocation().getWorkshopLocationId()).isEmpty()) {
-            errors.rejectValue("workshopLocation", "There is no such workshop location.");
+            errors.rejectValue("workshopLocation", "", "There is no such workshop location.");
         }
     }
 }

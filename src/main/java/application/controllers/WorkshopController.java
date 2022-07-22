@@ -1,9 +1,7 @@
 package application.controllers;
 
-import application.dto.StudentDTO;
 import application.dto.WorkshopDTO;
 import application.dto.WorkshopResponse;
-import application.jpa.entities.Student;
 import application.jpa.entities.Workshop;
 import application.services.WorkshopService;
 import application.util.error_responses.ErrorResponse;
@@ -18,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import static application.util.ErrorsUtil.returnErrorsToClient;

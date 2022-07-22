@@ -86,12 +86,11 @@ public class StudentController {
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
-   @PostMapping("/{id}/schedule")
+    // Расписание на конкретный день. В параметры передать дату, например: students/{id}/schedule?date=2000-11-22
+   @GetMapping("/{id}/schedule")
    public List<Workshop> getSchedule(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
                                      @PathVariable("id") Integer id) {
 
-        System.out.println(date);
-        System.out.println(id + " ID");
         return studentService.getWorkshopsByDate(id, date);
    }
 

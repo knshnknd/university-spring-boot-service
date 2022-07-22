@@ -1,9 +1,7 @@
 package application.controllers;
 
-import application.dto.StudentDTO;
 import application.dto.TeacherDTO;
 import application.dto.TeacherResponse;
-import application.jpa.entities.Student;
 import application.jpa.entities.Teacher;
 import application.services.TeacherService;
 import application.util.error_responses.ErrorResponse;
