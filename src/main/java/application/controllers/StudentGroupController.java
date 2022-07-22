@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import static application.exceptions.ErrorsUtil.returnErrorsToClient;
 
 @RestController
-@RequestMapping("/student_groups")
+@RequestMapping("/student-groups")
 public class StudentGroupController {
 
     private final StudentGroupService studentGroupService;

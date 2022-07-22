@@ -1,31 +1,29 @@
 package application.controllers;
 
-import application.jpa.entities.StudentGroup;
-import application.services.StudentGroupService;
+import application.jpa.entities.Subject;
+import application.services.SubjectService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
-
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
-class StudentGroupControllerTest {
+class SubjectControllerTest {
 
     public static final String APPLICATION_JSON = "application/json";
 
@@ -33,17 +31,17 @@ class StudentGroupControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private StudentGroupService studentGroupService;
+    private SubjectService subjectService;
 
     @Test
     void getAll() throws Exception {
-        given(studentGroupService.findAll()).willReturn(
+        given(subjectService.findAll()).willReturn(
                 new ArrayList<>(List.of(
-                        new StudentGroup(1, "Group 1"),
-                        new StudentGroup(2, "Group 2")
+                        new Subject(1, "Math"),
+                        new Subject(2, "Literature")
                 )));
 
-        mockMvc.perform(get("/student-groups"))
+        mockMvc.perform(get("/subjects"))
                 .andDo(print())
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -51,9 +49,9 @@ class StudentGroupControllerTest {
 
     @Test
     void getOne() throws Exception {
-        given(studentGroupService.findOne(1)).willReturn(new StudentGroup(1, "Group 1"));
+        given(subjectService.findOne(1)).willReturn(new Subject(1, "Math"));
 
-        mockMvc.perform(get("/student-groups/1"))
+        mockMvc.perform(get("/subjects/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON));
@@ -61,30 +59,30 @@ class StudentGroupControllerTest {
 
     @Test
     void createUpdateDelete() throws Exception {
-        StudentGroup studentGroup = new StudentGroup("Group 1");
+        Subject subject = new Subject("Math");
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(studentGroup);
+        String requestJson = ow.writeValueAsString(subject);
 
-        mockMvc.perform(post("/student-groups/").contentType(APPLICATION_JSON).content(requestJson))
+        mockMvc.perform(post("/subjects/").contentType(APPLICATION_JSON).content(requestJson))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON));
 
-        studentGroup.setStudentGroupName("Group 2");
+        subject.setSubjectName("Literature");
 
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow2 = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson2 = ow2.writeValueAsString(studentGroup);
+        String requestJson2 = ow2.writeValueAsString(subject);
 
-        mockMvc.perform(patch("/student-groups/1").contentType(APPLICATION_JSON).content(requestJson2))
+        mockMvc.perform(patch("/subjects/1").contentType(APPLICATION_JSON).content(requestJson2))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON));
 
-        mockMvc.perform(delete("/student-groups/1"))
+        mockMvc.perform(delete("/subjects/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON));

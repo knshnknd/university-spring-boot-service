@@ -28,6 +28,11 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
+    public Subject(Integer subjectId, String subjectName) {
+        this.subjectId = subjectId;
+        this.subjectName = subjectName;
+    }
+
     public Subject(Integer subjectId, String subjectName, List<Workshop> workshops) {
         this.subjectId = subjectId;
         this.subjectName = subjectName;

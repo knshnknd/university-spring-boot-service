@@ -24,6 +24,12 @@ public class Teacher {
     public Teacher() {
     }
 
+    public Teacher(Integer teacherId, String teacherFullName, String teacherScienceDegree) {
+        this.teacherId = teacherId;
+        this.teacherFullName = teacherFullName;
+        this.teacherScienceDegree = teacherScienceDegree;
+    }
+
     public Teacher(String teacherFullName, String teacherScienceDegree) {
         this.teacherFullName = teacherFullName;
         this.teacherScienceDegree = teacherScienceDegree;

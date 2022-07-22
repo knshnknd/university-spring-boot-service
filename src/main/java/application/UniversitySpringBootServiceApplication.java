@@ -16,9 +16,9 @@ public class UniversitySpringBootServiceApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(UniversitySpringBootServiceApplication.class, args);
-		// DataPreloadService dataPreloadService = context.getBean("dataPreloadService", DataPreloadService.class);
 
-		// dataPreloadService.preloadData();
+		DataPreloadService dataPreloadService = context.getBean("dataPreloadService", DataPreloadService.class);
+		dataPreloadService.preloadData();
 	}
 
 }

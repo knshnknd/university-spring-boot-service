@@ -27,6 +27,11 @@ public class WorkshopLocation {
         this.workshopLocationFullAddress = workshopLocationFullAddress;
     }
 
+    public WorkshopLocation(Integer workshopLocationId, String workshopLocationFullAddress) {
+        this.workshopLocationId = workshopLocationId;
+        this.workshopLocationFullAddress = workshopLocationFullAddress;
+    }
+
     public WorkshopLocation(Integer workshopLocationId, String workshopLocationFullAddress,
                             List<Workshop> workshops) {
         this.workshopLocationId = workshopLocationId;

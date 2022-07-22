@@ -23,7 +23,7 @@ public class Student {
     @JoinColumn(referencedColumnName = "studentGroupId")
     private StudentGroup studentGroup;
 
-
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "student_workshops",
