@@ -36,7 +36,7 @@ class StudentGroupControllerTest {
     private StudentGroupService studentGroupService;
 
     @Test
-    void getAll() throws Exception {
+    void getAllTest() throws Exception {
         given(studentGroupService.findAll()).willReturn(
                 new ArrayList<>(List.of(
                         new StudentGroup(1, "Group 1"),
@@ -50,7 +50,7 @@ class StudentGroupControllerTest {
     }
 
     @Test
-    void getOne() throws Exception {
+    void getOneTest() throws Exception {
         given(studentGroupService.findOne(1)).willReturn(new StudentGroup(1, "Group 1"));
 
         mockMvc.perform(get("/student-groups/1"))
@@ -60,7 +60,7 @@ class StudentGroupControllerTest {
     }
 
     @Test
-    void createUpdateDelete() throws Exception {
+    void createUpdateDeleteTest() throws Exception {
         StudentGroup studentGroup = new StudentGroup("Group 1");
 
         ObjectMapper mapper = new ObjectMapper();

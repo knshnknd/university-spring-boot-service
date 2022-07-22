@@ -2,11 +2,7 @@ package application.controllers;
 
 import application.jpa.entities.Student;
 import application.jpa.entities.StudentGroup;
-import application.services.StudentGroupService;
 import application.services.StudentService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

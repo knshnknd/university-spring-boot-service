@@ -39,15 +39,15 @@ public class DataPreloadService {
     }
 
     public void preloadData() {
-        preloadSubjects();
-        preloadTeachers();
-        preloadWorkshopLocations();
-        preloadStudentGroups();
-        preloadStudents();
-        preloadWorkshops();
+        System.out.println("Subjects preloaded: " + preloadSubjects());
+        System.out.println("Teachers preloaded: " + preloadTeachers());
+        System.out.println("Workshop locations preloaded: " + preloadWorkshopLocations());
+        System.out.println("Student groups preloaded: " + preloadStudentGroups());
+        System.out.println("Students preloaded: " + preloadStudents());
+        System.out.println("Workshops preloaded: " + preloadWorkshops());
     }
 
-    private void preloadTeachers() {
+    private boolean preloadTeachers() {
         List<Teacher> teacherList = List.of(
                 new Teacher("John Smith", "PhD in history"),
                 new Teacher("Bob Smith", "MBA"),
@@ -55,9 +55,10 @@ public class DataPreloadService {
         );
 
         teacherRepository.saveAll(teacherList);
+        return true;
     }
 
-    private void preloadWorkshopLocations() {
+    private boolean preloadWorkshopLocations() {
         List<WorkshopLocation> workshopLocationList = List.of(
                 new WorkshopLocation("Main building, auditorium 205"),
                 new WorkshopLocation("Main building, gym"),
@@ -65,9 +66,10 @@ public class DataPreloadService {
         );
 
         workshopLocationRepository.saveAll(workshopLocationList);
+        return true;
     }
 
-    private void preloadSubjects() {
+    private boolean preloadSubjects() {
         List<Subject> subjectList = List.of(
                 new Subject("Economics"),
                 new Subject("Algorithmization and programming"),
@@ -75,18 +77,20 @@ public class DataPreloadService {
         );
 
         subjectRepository.saveAll(subjectList);
+        return true;
     }
 
-    private void preloadStudentGroups() {
+    private boolean preloadStudentGroups() {
         List<StudentGroup> studentGroups = List.of(
                 new StudentGroup("Group 1"),
                 new StudentGroup("Group 2")
         );
 
         studentGroupRepository.saveAll(studentGroups);
+        return true;
     }
 
-    private void preloadStudents() {
+    private boolean preloadStudents() {
         List<Student> students = List.of(
                 new Student("William Blake", studentGroupRepository.findById(1).get()),
                 new Student("John Milton", studentGroupRepository.findById(1).get()),
@@ -96,8 +100,9 @@ public class DataPreloadService {
         );
 
         studentRepository.saveAll(students);
+        return true;
     }
-    private void preloadWorkshops() {
+    private boolean preloadWorkshops() {
         List<Workshop> workshops = new ArrayList<>();
         List<Student> foundStudents = studentRepository.findAll();
 
@@ -132,5 +137,6 @@ public class DataPreloadService {
         } catch (ParseException ignore) {}
 
         workshopRepository.saveAll(workshops);
+        return true;
     }
 }
