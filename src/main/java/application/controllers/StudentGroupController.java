@@ -25,8 +25,8 @@ public class StudentGroupController {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public StudentGroupController(StudentGroupService studentGroupService,
-                                  StudentGroupValidator studentGroupValidator, ModelMapper modelMapper) {
+    public StudentGroupController(StudentGroupService studentGroupService, StudentGroupValidator studentGroupValidator,
+                                  ModelMapper modelMapper) {
         this.studentGroupService = studentGroupService;
         this.studentGroupValidator = studentGroupValidator;
         this.modelMapper = modelMapper;

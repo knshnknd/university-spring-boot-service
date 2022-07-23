@@ -8,7 +8,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@JsonIdentityInfo(scope = Subject.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "subjectId")
+@JsonIdentityInfo(scope = Subject.class,
+        generator = ObjectIdGenerators.PropertyGenerator.class, property = "subjectId")
 public class Subject {
 
     @Id

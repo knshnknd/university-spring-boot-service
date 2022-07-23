@@ -24,7 +24,8 @@ public class TeacherController {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public TeacherController(TeacherService teacherService, TeacherValidator teacherValidator, ModelMapper modelMapper) {
+    public TeacherController(TeacherService teacherService, TeacherValidator teacherValidator,
+                             ModelMapper modelMapper) {
         this.teacherService = teacherService;
         this.teacherValidator = teacherValidator;
         this.modelMapper = modelMapper;
@@ -41,7 +42,8 @@ public class TeacherController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> create(@RequestBody @Valid TeacherRequestDto teacherRequestDTO, BindingResult bindingResult) {
+    public ResponseEntity<HttpStatus> create(@RequestBody @Valid TeacherRequestDto teacherRequestDTO,
+                                             BindingResult bindingResult) {
         Teacher teacherToCreate = convertToTeacher(teacherRequestDTO);
 
         teacherValidator.validate(teacherToCreate, bindingResult);

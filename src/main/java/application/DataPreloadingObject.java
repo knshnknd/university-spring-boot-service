@@ -17,13 +17,13 @@ import java.util.List;
 @Service
 @Transactional
 public class DataPreloadingObject {
-    private StudentRepository studentRepository;
-    private StudentGroupRepository studentGroupRepository;
-    private SubjectRepository subjectRepository;
-    private TeacherRepository teacherRepository;
-    private WorkshopRepository workshopRepository;
-    private WorkshopLocationRepository workshopLocationRepository;
-    private StudentService studentService;
+    private final StudentRepository studentRepository;
+    private final StudentGroupRepository studentGroupRepository;
+    private final SubjectRepository subjectRepository;
+    private final TeacherRepository teacherRepository;
+    private final WorkshopRepository workshopRepository;
+    private final WorkshopLocationRepository workshopLocationRepository;
+    private final StudentService studentService;
 
     @Autowired
     public DataPreloadingObject(StudentRepository studentRepository, StudentGroupRepository studentGroupRepository,

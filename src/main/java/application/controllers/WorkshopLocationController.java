@@ -26,7 +26,8 @@ public class WorkshopLocationController {
 
     @Autowired
     public WorkshopLocationController(WorkshopLocationService workshopLocationService,
-                                      WorkshopLocationValidator workshopLocationValidator, ModelMapper modelMapper) {
+                                      WorkshopLocationValidator workshopLocationValidator,
+                                      ModelMapper modelMapper) {
         this.workshopLocationService = workshopLocationService;
         this.workshopLocationValidator = workshopLocationValidator;
         this.modelMapper = modelMapper;

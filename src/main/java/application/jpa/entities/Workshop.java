@@ -12,7 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@JsonIdentityInfo(scope = Workshop.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "workshopId")
+@JsonIdentityInfo(scope = Workshop.class,
+        generator = ObjectIdGenerators.PropertyGenerator.class, property = "workshopId")
 public class Workshop {
 
     @Id
