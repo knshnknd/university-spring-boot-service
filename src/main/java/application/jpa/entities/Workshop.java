@@ -3,6 +3,9 @@ package application.jpa.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -12,6 +15,9 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonIdentityInfo(scope = Workshop.class,
         generator = ObjectIdGenerators.PropertyGenerator.class, property = "workshopId")
 public class Workshop {
@@ -41,9 +47,6 @@ public class Workshop {
     @ManyToMany(mappedBy = "workshops")
     private List<Student> students = new ArrayList<>();
 
-    public Workshop() {
-    }
-
     public Workshop(Long workshopId) {
         this.workshopId = workshopId;
     }
@@ -55,67 +58,5 @@ public class Workshop {
         this.teacher = teacher;
         this.workshopDate = workshopDate;
         this.students = students;
-    }
-
-    public Workshop(Long workshopId, Subject subject, WorkshopLocation workshopLocation, Teacher teacher,
-                    Date workshopDate, List<Student> students) {
-        this.workshopId = workshopId;
-        this.subject = subject;
-        this.workshopLocation = workshopLocation;
-        this.teacher = teacher;
-        this.workshopDate = workshopDate;
-        this.students = students;
-    }
-
-    public Long getWorkshopId() {
-        return workshopId;
-    }
-
-    public void setWorkshopId(Long workshopId) {
-        this.workshopId = workshopId;
-    }
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
-
-    public WorkshopLocation getWorkshopLocation() {
-        return workshopLocation;
-    }
-
-    public void setWorkshopLocation(WorkshopLocation workshopLocation) {
-        this.workshopLocation = workshopLocation;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
-    public Date getWorkshopDate() {
-        return workshopDate;
-    }
-
-    public void setWorkshopDate(Date workshopDate) {
-        this.workshopDate = workshopDate;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
-
-    public void enrollStudent(Student student) {
-        students.add(student);
     }
 }

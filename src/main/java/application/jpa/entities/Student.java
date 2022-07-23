@@ -3,12 +3,18 @@ package application.jpa.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "studentId")
 public class Student {
 
@@ -32,9 +38,6 @@ public class Student {
     )
     private List<Workshop> workshops = new ArrayList<>();
 
-    public Student() {
-    }
-
     public Student(String studentFullName, StudentGroup studentGroup) {
         this.studentFullName = studentFullName;
         this.studentGroup = studentGroup;
@@ -49,44 +52,5 @@ public class Student {
         this.studentId = studentId;
         this.studentFullName = studentFullName;
         this.studentGroup = studentGroup;
-    }
-
-    public Student(Integer studentId, String studentFullName, StudentGroup studentGroup, List<Workshop> workshops) {
-        this.studentId = studentId;
-        this.studentFullName = studentFullName;
-        this.studentGroup = studentGroup;
-        this.workshops = workshops;
-    }
-
-    public Integer getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getStudentFullName() {
-        return studentFullName;
-    }
-
-    public void setStudentFullName(String studentFullName) {
-        this.studentFullName = studentFullName;
-    }
-
-    public StudentGroup getStudentGroup() {
-        return studentGroup;
-    }
-
-    public void setStudentGroup(StudentGroup studentGroup) {
-        this.studentGroup = studentGroup;
-    }
-
-    public List<Workshop> getWorkshops() {
-        return workshops;
-    }
-
-    public void setWorkshops(List<Workshop> workshops) {
-        this.workshops = workshops;
     }
 }
